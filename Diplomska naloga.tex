@@ -1,17 +1,125 @@
-\documentclass{article}
-\usepackage{graphicx}
+\documentclass[12pt,a4paper]{amsart}
+% ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
+\usepackage[slovene]{babel}
+\usepackage[cp1250]{inputenc}
+%\usepackage[T1]{fontenc}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{url}
+%\usepackage[normalem]{ulem}
+\usepackage[dvipsnames,usenames]{color}
+
+% ne spreminjaj podatkov, ki vplivajo na obliko strani
+\textwidth 15cm
+\textheight 24cm
+\oddsidemargin.5cm
+\evensidemargin.5cm
+\topmargin-5mm
+\addtolength{\footskip}{10pt}
+\pagestyle{plain}
+\overfullrule=15pt % oznaci predlogo vrstico
+
+
+% ukazi za matematicna okolja
+\theoremstyle{definition} % tekst napisan pokoncno
+\newtheorem{definicija}{Definicija}[section]
+\newtheorem{primer}[definicija]{Primer}
+\newtheorem{opomba}[definicija]{Opomba}
+
+\renewcommand\endprimer{\hfill$\diamondsuit$}
+
+
+\theoremstyle{plain} % tekst napisan posevno
+\newtheorem{lema}[definicija]{Lema}
+\newtheorem{izrek}[definicija]{Izrek}
+\newtheorem{trditev}[definicija]{Trditev}
+\newtheorem{posledica}[definicija]{Posledica}
+
+
+% za stevilske mnozice uporabi naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+
+% ukaz za slovarsko geslo
+\newlength{\odstavek}
+\setlength{\odstavek}{\parindent}
+\newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
+
+
+% naslednje ukaze ustrezno popravi
+\newcommand{\program}{Financna matematika} % ime studijskega programa: Matematika/Finan"cna matematika
+\newcommand{\imeavtorja}{Neža Habjan} % ime avtorja
+\newcommand{\imementorja}{prof.~doc.~dr. Matjaž Črnigoj} % akademski naziv in ime mentorja
+\newcommand{\naslovdela}{Posebnosti pri vrednotenju podjetja z internim trgom delnic - Domel Holding d.d.}
+\newcommand{\letnica}{2019} %letnica diplome
+
+
+% vstavi svoje definicije ...
+
+
+
 
 \begin{document}
 
-\title{Diplomska naloga:\\
-\textbf{Posebnosti pri vrednotenju podjetja z internim trgom delnic - Domel Holding d.d.} }
+% od tod do povzetka ne spreminjaj nicesar
+\thispagestyle{empty}
+\noindent{\large
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
+\program\ -- 1.~stopnja}
+\vfill
 
-\author{Avtorica: Neža Habjan\\
-Mentor: doc. dr. Matjaž Črnigoj}
-\date{\today}
+\begin{center}{\large
+\imeavtorja\\[2mm]
+{\bf \naslovdela}\\[10mm]
+Delo diplomskega seminarja\\[1cm]
+Mentor: \imementorja}
+\end{center}
+\vfill
 
-\maketitle
+\noindent{\large
+Ljubljana, \letnica}
+\pagebreak
+
+\thispagestyle{empty}
+\tableofcontents
+\pagebreak
+
+\thispagestyle{empty}
+\begin{center}
+{\bf \naslovdela}\\[3mm]
+{\sc Povzetek}
+\end{center}
+% tekst povzetka v slovenscini
+V povzetku na kratko opi"si vsebinske rezultate dela. Sem ne sodi razlaga organizacije dela -- v katerem poglavju/razdelku je kaj, pa"c pa le opis vsebine.
+\vfill
+\begin{center}
+{\bf Angle"ski naslov dela}\\[3mm] % prevod slovenskega naslova dela
+{\sc Abstract}
+\end{center}
+% tekst povzetka v anglescini
+Prevod zgornjega povzetka v angle"s"cino.
+
+\vfill\noindent
+{\bf Math. Subj. Class. (2010):} navedi vsaj eno klasifikacijsko oznako -- dostopne so na \url{www.ams.org/mathscinet/msc/msc2010.html}  \\[1mm]
+{\bf Klju"cne besede:} navedi nekaj klju"cnih pojmov, ki nastopajo v delu  \\[1mm]
+{\bf Keywords:} angle"ski prevod klju"cnih besed
+\pagebreak
+
+
+
+% tu se zacne besedilo seminarja
+\section{Uvod}
+Podjetja po svetu dandanes delujejo v mnogih različnih oblikah, znotraj teh pa se ustvarjajo razlike še glede na organiziranost, vodenje, smernice delovanja,... Vse to ustvarja veliko heterogenost v podjetniškem prostoru. Seveda pa je, če želimo, da podjetje posluje uspešno in z dobičkom, potrebno vse te dejavnike izbirati skrbno in premišljeno. Vsaka vrsta organiziranosti namreč ne ustreza vsem trgom, delavcem, panogam,... \\
+V slovenskem prostoru se tako nahaja podjetje, ki je po svoji organiziranosti unikat. Kljub temu, da je precej zaprto, kar se tiče vlaganja tretjih oseb v njegove delnice, posluje z odliko in si v Evropi lasti 60\% tržni delež na področju sesalnih enot, ki so njegov glavni proizvod. To je podjetje Domel, s sedežem v Železnikih, v Selški dolini. Domel je delniška družba, ki s svojimi delnicami upravlja na zaprtem, internem trgu. Neizpostavljenost širšemu trgu ali borzi zato povzroča precej nizko vrednost le teh, še posebej, ker podjetje uživa izjemno dobro ime v javnosti, kar bi za vlagatelje lahko pomenilo velik interes.\\
+V svojem diplomskem delu bi zato rada analizirala in ocenila padec vrednosti delnice Domela, zaradi njegove zaprtosti. Pri tem bom preučila obnašanje delničarjev podjetja, torej če in kdaj imajo interes povečati oziroma zmanjšati svojo naložbo vanj. Ob vrednotenju bom kot glavnega morala oceniti diskontni faktor, s katerim bom prihodnje denarne tokove prenesla na sedanjo vrednost. Pri tem si bom pomagala z dvema pomembnejšema konceptoma odbitkov, ki sta zaradi zaprtosti podjetja ključnega pomena, in sicer s tržljivostjo in likvidnostjo.
 \newpage
+
+\section{Predstavitev podjetja Domel Holding d.d.}
 
 \section{Ocenjevanje vrednosti}
 \subsection{Metode ocenjevanja vrednosti}
@@ -24,7 +132,8 @@ Metode načina tržnih primerjav so :
 \item metoda primerljivih poslov
 \item metoda primerljivih podjetij, uvrščenih na borzi
 \end{itemize}
-Ker pa pri primerjavi z enakimi ali podobnimi sredstvi, ki so že ovrednotena, moramo upoštevati prilagoditve razlik od ocenjevanega sredstva, se pri tej metodi vračunajo tudi razni odbitki (npr. za tržljivost) in pribitki (npr. za obvladovanje), katerih podrobnejši opis sledi v nadaljevanju naloge.
+Ker pa pri primerjavi z enakimi ali podobnimi sredstvi, ki so že ovrednotena, moramo upoštevati prilagoditve razlik od ocenjevanega sredstva, se pri tej metodi vračunajo tudi razni odbitki (npr. za tržljivost) in pribitki (npr. za obvladovanje), katerih podrobnejši opis sledi v nadaljevanju naloge.\\
+Način tržnih primerjav zahteva obstoj podobnega sredstva ocenjevanemu, ki je že bilo ovrednoteno. Ker pa je podjetje Domel Holding d.d., kot bomo videli kasneje, unikatno predvsem zaradi zaprtosti svojega trga delnic in hkratni izjemni uspešnosti pri poslovanju, za vrednotenje opisan način ni primeren. 
 
 \subsubsection{Nabavnovrednostni način}
 Ta način podaja vrednost sredstva z izračunavanjem sedanje nadomestitvene ali nabavne vrednosti. Gre torej za ceno pridobitve sredstva enake koristnosti z nakupom ali z gradnjo oziroma izdelavo. Cena naj bi zajemala vse stroške, ki bi jih imel značilni udeleženec trga. Način naj bi se uporabljal v okoliščinah, ko bi tržni udeleženci lahko ponovno ustvarili sredstvo skoraj enake koristnosti, kot je ocenjevano sredstvo, brez regulativnih ali zakonskih omejitev ter v primerih, ko se že za izračun podlage vrednosti uporablja nadomestitvene stroške npr. nadomestitveno nabavno vrednost. Pri tem z izrazom podlaga vrednosti mislimo bodisi na tržno, pošteno vrednost, vrednost za naložbenika,... glede na to, kaj si izberemo za ocenjevanje. Poleg tega ima nabavnovrednostni način veliko težo v primerih, ko sredstvo neposredno ne ustvarja dohodka in zaradi njegove enkratne vrste noben od ostalih dveh načinov ne pride v poštev. 
@@ -34,7 +143,8 @@ Metode nabavnovrednostnega načina so :
 \item metoda reprodukcijske nabavne vrednosti
 \item metoda seštevanja
 \end{itemize}
-Pri uporabi metod opisanega načina moramo upoštevati tudi odbitke za fizično poslabšanje in vse druge pomembne oblike zastarelosti.
+Pri uporabi metod opisanega načina moramo upoštevati tudi odbitke za fizično poslabšanje in vse druge pomembne oblike zastarelosti.\\
+Delnice podjetja Domel, ki jim ocenjujem vrednost, v prihodnosti prinašajo denarne tokove, ki jih lahko zanesljivo določimo, saj podjetje ni zagonsko ali v zgodnji fazi, pač pa že močno razvito. Prav zato je najbolj ustrezen način za vrednotenje na donosu osnovan način.
 
 \subsubsection{Na donosu zasnovan način}
 Vrednost sredstva dobimo s pretvorbo prihodnjih denarnih tokov, ki nam jih sredstvo prinaša, v eno samo sedanjo vrednost. Sklicujemo se torej na vrednost dohodka, denarnih tokov ali prihranka, ki ga sredstvo ustvari v prihodnosti. Način je najbolj uporaben v primerih, ko je ustvarjanje denarnih tokov bistvena sestavina, ki vpliva na stališče tržnega udeleženca o vrednosti sredstva. Hkrati pa je dobra podlaga za ocenjevanje tudi kadar imamo o sredstvu veliko podatkov o njegovih prihodnjih donosih, trenutnih tržnih primerljivk pa je malo ali jih sploh ni. Temeljna podlaga na donosu zasnovanega načina je, da naložbeniki pričakujejo donos od svojih naložb in da naj bi tak donos odražal zaznano raven tveganja pri naložbi. V ta namen moramo določiti ustrezno diskontno stopnjo, s katero bomo prihodnje vrednosti prilagodili na sedanjost.
@@ -45,7 +155,38 @@ Metoda na donosu zasnovanega načina je :
 Pri tej metodi poznamo različne variacije, saj lahko denarne tokove diskontiramo na različne načine. Izbiramo namreč vrsto denarnega toka, dolžino obdobja podrobne napovedi, način napovedi denarnega toka, načina izračuna preostale vrednosti, diskontno vrednost, ... 
 
 \subsection{Standardi sredstev}
-Standardi se lahko nanašajo na različne vrste sredstev, kot na primer podjetja in poslovne deleže, neopredmetena sredstva, naprave in opremo, pravice na nepremičninah, nepremičnine za gradnjo, finančne instrumente,... V diplomski nalogi obravnavam ocenjevanje podjetja, zato se osredotočimo na prvo vrsto sredstev, torej podjetja in poslovne deleže.
+Standardi se lahko nanašajo na različne vrste sredstev, kot na primer podjetja in poslovne deleže, neopredmetena sredstva, naprave in opremo, pravice na nepremičninah, nepremičnine za gradnjo, finančne instrumente,... V diplomski nalogi obravnavam ocenjevanje podjetja, zato se bom osredotočila na prvo vrsto sredstev, torej podjetja in poslovne deleže.
 \subsubsection{Podjetja in poslovni deleži}
+Do pojma podjetje se pri vrednotenju opredelimo v odvisnosti od namena ocenjevanja njegove vrednosti. Na splošno pa podjetja opravljajo komercialne, industrijske, storitvene ali naložbene dejavnosti. Lahko se nahajajo v različnih oblikah, kot na primer kapitalske, osebne družbe, samostojni podjetniki, ... Pri ocenjevanju se bom osredotočila na oceno lastniškega deleža podjetja Domel, torej na vrednost ene delnice podjetja. Za podlago vrednosti bi lahko izbrala tudi  vrednost celotnega kapitala, vrednost vloženega kapitala, vrednost iz poslovanja,... vendar je glede na to, da je Domel delniška družba, katere posebnost je prav njen trg delnic, najbolj primeren za ocenjevanje lastniški kapital.  
+
+
+
+
+
+
+
+% slovar
+\section*{Slovar strokovnih izrazov}
+
+%\geslo{}{}
+%
+%\geslo{}{}
+%
+
+
+% seznam uporabljene literature
+\begin{thebibliography}{99}
+
+%\bibitem{}
+
+\end{thebibliography}
 
 \end{document}
+
+
+
+
+
+
+
+
