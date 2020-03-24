@@ -1,0 +1,638 @@
+\documentclass[12pt,a4paper]{amsart}
+% ukazi za delo s slovenscino -- izberi kodiranje, ki ti ustreza
+\usepackage[slovene]{babel}
+%\usepackage[cp1250]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{url}
+%\usepackage[normalem]{ulem}
+\usepackage[dvipsnames,usenames]{color}
+
+
+% ne spreminjaj podatkov, ki vplivajo na obliko strani
+\textwidth 15cm
+\textheight 24cm
+\oddsidemargin.5cm
+\evensidemargin.5cm
+\topmargin-5mm
+\addtolength{\footskip}{10pt}
+\pagestyle{plain}
+\overfullrule=15pt % oznaci predolgo vrstico
+
+
+% ukazi za matematicna okolja
+\theoremstyle{definition} % tekst napisan pokoncno
+\newtheorem{definicija}{Definicija}[section]
+\newtheorem{primer}[definicija]{Primer}
+\newtheorem{opomba}[definicija]{Opomba}
+
+\renewcommand\endprimer{\hfill$\diamondsuit$}
+
+
+\theoremstyle{plain} % tekst napisan posevno
+\newtheorem{lema}[definicija]{Lema}
+\newtheorem{izrek}[definicija]{Izrek}
+\newtheorem{trditev}[definicija]{Trditev}
+\newtheorem{posledica}[definicija]{Posledica}
+
+
+% za stevilske mnozice uporabi naslednje simbole
+\newcommand{\R}{\mathbb R}
+\newcommand{\N}{\mathbb N}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\C}{\mathbb C}
+\newcommand{\Q}{\mathbb Q}
+
+
+% ukaz za slovarsko geslo
+\newlength{\odstavek}
+\setlength{\odstavek}{\parindent}
+\newcommand{\geslo}[2]{\noindent\textbf{#1}\hspace*{3mm}\hangindent=\parindent\hangafter=1 #2}
+
+
+% naslednje ukaze ustrezno popravi
+\newcommand{\program}{Finančna matematika} % ime studijskega programa: Matematika/Finan"cna matematika
+\newcommand{\imeavtorja}{Neža Habjan} % ime avtorja
+\newcommand{\imementorja}{prof.~doc.~dr. Matjaž Črnigoj} % akademski naziv in ime mentorja
+\newcommand{\naslovdela}{Posebnosti pri vrednotenju podjetja z internim trgom delnic - podjetje X}
+\newcommand{\letnica}{2019} %letnica diplome
+
+
+% vstavi svoje definicije ...
+
+
+
+
+\begin{document}
+
+% od tod do povzetka ne spreminjaj nicesar
+\thispagestyle{empty}
+\noindent{\large
+UNIVERZA V LJUBLJANI\\[1mm]
+FAKULTETA ZA MATEMATIKO IN FIZIKO\\[5mm]
+\program\ -- 1.~stopnja}
+\vfill
+
+\begin{center}{\large
+\imeavtorja\\[2mm]
+{\bf \naslovdela}\\[10mm]
+Delo diplomskega seminarja\\[1cm]
+Mentor: \imementorja}
+\end{center}
+\vfill
+
+\noindent{\large
+Ljubljana, \letnica}
+\pagebreak
+
+\thispagestyle{empty}
+\tableofcontents
+\pagebreak
+
+\thispagestyle{empty}
+\begin{center}
+{\bf \naslovdela}\\[3mm]
+{\sc Povzetek}
+\end{center}
+% tekst povzetka v slovenscini
+V povzetku na kratko opi"si vsebinske rezultate dela. Sem ne sodi razlaga organizacije dela -- v katerem poglavju/razdelku je kaj, pa"c pa le opis vsebine.
+\vfill
+\begin{center}
+{\bf Angle"ski naslov dela}\\[3mm] % prevod slovenskega naslova dela
+{\sc Abstract}
+\end{center}
+% tekst povzetka v anglescini
+Prevod zgornjega povzetka v angle"s"cino.
+
+\vfill\noindent
+{\bf Math. Subj. Class. (2010):} navedi vsaj eno klasifikacijsko oznako -- dostopne so na \url{www.ams.org/mathscinet/msc/msc2010.html}  \\[1mm]
+{\bf Klju"cne besede:} navedi nekaj klju"cnih pojmov, ki nastopajo v delu  \\[1mm]
+{\bf Keywords:} angle"ski prevod klju"cnih besed
+\pagebreak
+
+
+
+% tu se zacne besedilo seminarja
+\section{Uvod}
+Podjetja po svetu dandanes delujejo v mnogih različnih oblikah, znotraj teh pa se pojavljajo razlike še glede na organiziranost, vodenje, smernice delovanja,... Vse to ustvarja veliko heterogenost v podjetniškem prostoru. Seveda pa je, če želimo, da podjetje posluje uspešno in z dobičkom, potrebno vse te dejavnike izbirati skrbno in premišljeno. Vsaka vrsta organiziranosti namreč ne ustreza vsem trgom, delavcem, panogam,... \\
+V slovenskem prostoru se tako nahaja podjetje, ki je po svoji organiziranosti unikat. Kljub temu, da je precej zaprto, kar se tiče vlaganja tretjih oseb v njegove delnice, posluje z odliko in si v Evropi lasti 60\% tržni delež na področju sesalnih enot, ki so njegov glavni proizvod. To je podjetje X, ki je delniška družba, s svojimi delnicami pa upravlja na zaprtem, internem trgu. Neizpostavljenost širšemu trgu ali borzi zato povzroča njihovo precej nizko vrednost, še posebej, ker podjetje uživa izjemno dobro ime v javnosti, kar bi za vlagatelje lahko pomenilo velik interes.\\
+V svojem diplomskem delu bi zato rada analizirala in ocenila padec vrednosti delnice podjetja X, zaradi njegove zaprtosti. Pri tem bom preučila obnašanje delničarjev podjetja, torej če in kdaj imajo interes povečati oziroma zmanjšati svojo naložbo vanj. Ob vrednotenju bom kot glavnega morala oceniti diskontni faktor, s katerim bom prihodnje denarne tokove prenesla na sedanjo vrednost. Pri tem si bom pomagala z dvema pomembnejšema konceptoma odbitkov, ki sta zaradi zaprtosti podjetja ključnega pomena, in sicer s tržljivostjo in obvladljivostjo.
+\newpage
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Ocenjevanje vrednosti}
+Pri ocenjevanju vrednosti poznamo tri glavne načine vrednotenja, od katerih vsi temeljijo na ekonomskih načelih ravnovesja cen, pričakovanih koristi ali substituciji. To so način tržnih primerjav, na sredstvih zasnovan način in na donosu zasnovan način, vsak od njih pa vključuje podrobnejše metode uporabe. Med temi moramo izbirati previdno in v obzir vzeti vrsto sredstva, ki ga ocenjujemo, razpoložljive informacije, ki jih imamo, naš namen ocenjevanja ter ustrezne prednosti in slabosti posamezne metode. 
+
+\subsection{Način tržnih primerjav}:\\
+Ta način temelji na predpostavki, da dajejo kupoprodaje podobnih premoženj (nujno med nepovezanimi osebami), kot je naše ocenjevano, dovolj zgovorne dokaze o vrednosti ocenjevanega premoženja. 
+Vrednost ocenjevanega sredstva tako dobimo preko primerjave z vrednostmi podobnih sredstev, ki so že ovrednotena, torej so informacije o cenah že na voljo. Uporaba pride v poštev predvsem v primerih, ko je bilo ocenjevano sredstvo nedavno prodano v poslu, ki je primeren za proučevanje, ko se sredstvo dejavno javno trži, ali pa s podobnimi sredstvi obstajajo nedavni posli. Kadar se primerljiva tržna informacija ne nanaša na točno ali v bistvu enako sredstvo, mora ocenjevalec vrednosti opraviti primerjalno analizo tako podobnosti kot tudi razlik po kakovosti in količini med primerljivimi sredstvi in ocenjevanim sredstvom. (MSOV 2017) \\
+
+Metode načina tržnih primerjav so :
+\begin{itemize}
+\item metoda primerljivih kupoprodaj podjetij
+\item metoda primerljivih podjetij, uvrščenih na borzi
+\end{itemize}
+
+\subsubsection{METODA PRIMERLJIVIH PODJETIJ, UVRŠČENIH NA BORZI}:\\
+Pri ocenjevanju podjetij je zlasti pomembno, da ocenjevalec za primerjavo izbere tista podjetja, ki imajo enake dejavnike tveganja (okoliščine ponudbe in povpraševanja, prodajne poti, način dobave,..) kot ocenjevano. Poleg tega moramo upoštevati tudi podobnosti na področju trga, proizvodov in storitev, velikosti podjetja, preteklih podatkov iz poslovanja, območja delovanja (geografsko),... Določiti mora tudi primerno število podjetij za primerjavo, na kar vpliva predvsem stopnja primerljivosti. Najboljši vzorec za primerjavo naj bi obsegal od pet do sedem podjetij. (Praznik, 2004, 85.)\\
+Izračun vrednosti preko metode primerljivih podjetij poteka po konceptu mnogokratnikov ocenjevanja vrednosti. Pri tem pomnožimo temeljne finančne spremenljivke podjetja (dobiček pred davkom, čisti dobiček, obseg prodaje, bruto denarni tok,...) z mnogokratnikom, izraženim kot:
+\begin{equation}
+MV=\frac{1}{c}=\frac{1}{d-g}
+\end{equation}
+Kjer je:\\
+$MV$... mnogokratnik ocenjevanja vrednosti\\
+$c$... mera uglavničenja (kapitalizacije)\\
+$d$... diskontna mera\\
+$g$... stopnja rasti\\
+Mnogokratnik dobimo preko borznih kotacij primerljivih podjetij, pri čemer moramo vzeti tisto tržno ceno delnice, ki je aktualna na datum ocenjevanja vrednosti. Prav tako  pa moramo za izračun vseh ostalih vrednosti preko mnogokratnikov, jemati podatke istega dne oziroma iz istega časovnega obdobja, ne glede na datum vrednotenja. Časovno obdobje je lahko obdobje zadnjih 12 mesecev, zadnje obračunsko leto, povprečje zadnjih 3 let,...
+\begin{itemize}
+\item \textbf{Mnogokratniki lastniškega kapitala}:\\
+Preko teh mnogokratnikov dobimo vrednost lastniškega kapitala, pri čemer so njihove primernosti uporabe različne. 
+\begin{itemize}
+\item $cena/cisti\ dobicek\ na\ delnico$ - primerljiva podjetja imajo enako strukturo celotnega kapitala, kot naše ocenjevano podjetje.
+\item $cena/(cisti\ dobicek\ +\ nedenarni\ stroski\ na\ delnico)$ - amortizacija predstavlja velik del stroškov.
+\item $cena/dobicek\ pred\ davkom$ - ocenjevano podjetje ima drugačno davčno stopnjo od primerljivih.
+\item $cena/prihodki\ iz\ prodaje\ na\ delnico$ - upoštevamo stalnost kupcev in podobno operativno delovanje med podjetji.
+\item $cena/knjigovodska\ vrednost$ - uporabimo, ko knjigovodske vrednosti temeljijo na tržnih cenah.
+\end{itemize}
+\item \textbf{Mnogokratniki celotnega kapitala}:\\
+Uporabljamo jih, kadar se podjetja od ocenjevanega razlikujejo po sestavi sredstev in kapitala, z njimi pa dobimo vrednost celotnega kapitala. Ne glede na stopnjo obvladovanja ocenjevanega deleža, so navadno pogosteje uporabljeni kot mnogokratniki lastniškega kapitala.
+\begin{itemize}
+\item $cena\ celotnega\ kapitala\ (MVIC)/dobicek\ pred\ stroski\ financiranja\ (EBITDA)$
+\item $cena\ celotnega\ kapitala\ (MVIC)/dobicek\ pred\ stroski\ financiranja\ in\ davki\ (EBIT)$
+\item $cena\ celotnega\ kapitala\ (MVIC)/knjigovodska\ vrednost\ celotnega\ kapitala$
+\end{itemize}
+\end{itemize}
+Med vsemi podanimi mnogokratniki vedno izberemo tiste, za katere imamo zanesljive in ustrezne podatke ter nam najbolje prikazujejo pričakovano rast podjetja in pa dejavnike tveganja. Iz nabora vseh poračunanih vrednosti za primerljiva podjetja pa nato dejansko vrednost mnogokratnika lahko določimo kot aritmetično povprečje, mediano, spodnji/zgornji kvartal,... \\
+Ko pridobimo vrednost ocenjevanega deleža, je le to potrebno prilagoditi glede na stopnjo tržljivosti in pa obvladovanja, o čemer pa več sledi v kasnejših poglavjih.
+
+\subsubsection{METODA PRIMERLJIVIH KUPOPRODAJ PODJETIJ}:\\
+Pri tej metodi vrednost ocenjevanega deleža določamo preko primerljivih kupoprodaj podjetij, pri čemer moramo biti pozorni, da so se izbrani posli res izvajali med nepovezanimi osebami. Navadno obravnavamo nakup ali prodajo obvladujočega deleža, število primerljivih kupoprodaj pa je zaradi manjšega števila razpoložljivih kupoprodaj med neodvisnimi strankami, manjše kot pri izbiri primerljivih podjetij.\\
+Koncept vrednotenja po tej metodi zopet poteka preko mnogokratnikov, popolnoma na enak način kot pri prvi. Dodatno moramo le še ugotoviti kaj točno je vključeno v ceno prodaje in mogoče ni predmet našega ocenjevanja vrednosti ter posledično izvesti ustrezne prilagoditve. Prav tako se tudi pri metodi primerljivih kupoprodaj pojavita odbitka za pomanjkanje obvladljivosti in tržljivosti, vendar moramo biti pozorni na možnost, da cene odražajo elemente vrednosti za naložbenika in ne poštenih tržnih vrednosti, kar lahko povzroči sporne prilagoditve. (Praznik, 2004)
+
+
+\subsection{Na sredstvih temelječ način}:\\
+Ta način se sicer v splošnem redkeje uporablja pri vrednotenju podjetij, v poštev pa pride v primerih, ko je podjetje še v zgodnji fazi ali gre za zagonsko podjetje, kjer dobičkov in/ali denarnega toka ni mogoče zanesljivo določiti in so primerjave z drugimi podjetji po načinu tržnih primerjav praktično nemogoče ali nezanesljive. (MSOV, 2017)\\
+Metode na sredstvih temelječega načina so :
+\begin{itemize}
+\item metoda prilagojenih knjigovodskih vrednosti
+\item metoda presežnih donosov
+\end{itemize}
+
+\subsubsection{METODA PRILAGOJENIH KNJIGOVODSKIH VREDNOSTI}:\\
+S to metodo prilagodimo vse obveznosti in vsa sredstva podjetja (materialna in nematerialna) na tržno vrednost, ne glede na to, ali so vključena v bilanco stanja ali ne. Vrednost lastniškega kapitala je posledično razlika med tako ocenjenimi vrednostmi sredstev in obveznosti.\\
+Tudi pri tej metodi moramo na koncu uporabiti prilagoditve vrednosti, in sicer vrednosti sredstev. Te lahko temeljijo na predpostavki poslujočega podjetja ali pa likvidacije le tega. Razlika je namreč ta, da pri ocenjevanju vrednosti sredstev poslujočega podjetja izhajamo iz njihove najgospodarnejše uporabe.\\
+V splošnem vrednotenje sredstev podjetja delimo na vrednotenje nepremičnin in pa strojev in opreme. Vrednotenje nepremičnin poteka na tri načine:
+\begin{itemize}
+\item \underline{Nabavnovrednostni način}\\
+Uporabimo metodo za amortizacijo zmanjšane reprodukcijske vrednosti, kjer v osnovi upoštevamo ocenjeno nabavno vrednost za nadomestitev vrednotenega objekta, z novim, točno enakim. Le to nato postopoma zmanjšujemo glede na funkcionalno zastaranje, fizično dotrajanost, ekonomsko in popravljivo funkcionalno zastaranost in pridemo do tržne vrednosti objekta. Prišteti mu moramo še vrednost zemljišča in tako dobimo tržno vrednost celotne nepremičnine.
+\item \underline{ Na donosu zasnovan način}\\
+V uporabi sta metodi uglavničenja in diskontiranja denarnih tokov. Pri prvi moramo tako opredeliti ekonomski donos nepremičnine (prihodek iz najema, ki ga zmanjšamo za stroške vzdrževanja objekta), pred obdavčenjem. Pri metodi diskontiranja denarnih tokov pa po opredelitvi obdobja eksplicitne napovedi čistih dobičkov od sredstva pred davkom, določimo še preostalo vrednost kot iztržljivo vrednost sredstva po obdobju napovedi. Zneske diskontiramo in njihov seštevek je današnja vrednost nepremičnine.
+\item \underline{Način tržnih primerjav}\\
+Pri tem načinu primerjamo prodaje podobnih objektov s podobnimi značilnostmi kraja nahajanja, ki so se izvajale v čim bližnji preteklosti. V relavanten izbor kupoprodaje vključimo glede na časovni odmik, na datum ocenjevanja, razmerje med zemljiščem in stavbo, komunalno opremljenost, lokacijo, starost in fizično stanje nepremičnine, dostop, vidike okolja in financiranja,... 
+\end{itemize}
+Pri vrednotenju strojev in opreme sicer lahko uporabljamo vse tri omenjene metode vrednotenja nepremičnin, a se zaradi manjše ustreznosti ostalih dveh pogosteje uporablja le nabavnovrednostni način.\\
+Na področju prilagoditev vrednosti tokrat uporabljamo le odbitek za neobvladovanje, ker se ocenjena vrednost običajno nanaša za obvladujoči delež. Odbitek za pomanjkanje tržljivosti pa je pri tej metodi lahko sporen, saj je dejansko tržljivost obvladujočega deleža težko določiti, čeprav nekateri menijo, da je polno prodajljiv.
+
+\subsubsection{METODA PRESEŽNIH DONOSOV}:\\
+Ta metoda se uporablja le v primerih, ko druge ni mogoče uporabiti. Tokrat ocenjujemo tržno vrednost opredmetenih osnovnih sredstev in presežnih donosov (ocenjena raven dobička, zmanjšana za delež zahtevane mere donosa opredmetenih sredstev). Upoštevamo tudi obe že prej omenjeni prilagoditvi v odvisnosti od tega, kako velik delež ocenjujemo. 
+
+
+\subsection{Na donosu zasnovan način}:\\
+
+``Strošek kapitala je pričakovana mera donosa, ki jo zahteva trg za vlaganja v določeno naložbo." (Praznik, 2004, 49.) Je torej bistvo pri ocenjevanju vrednosti podjetij,  še posebej pri ``na donosu zasnovanem načinu". Sedanjo vrednost ocenjevanega deleža dobimo namreč tako, da prihodnje denarne tokove diskontiramo s stroškom kapitala. Ta strošek je določen s trgom, saj predstavlja mero donosa, ki jo vlagatelj želi, upoštevajoč donose vseh ostalih naložb na trgu. Pri tem v obzir v največji meri vzame njeno tveganost, torej verjetnost, da bo pričakovani donos res uresničen. Sestavine celotnega kapitala se po svojih stroških razlikujejo, kar nam meri WACC (skupno tehtano povprečje stroškov celotnega kapitala), ki zajema tudi delež posamezne vrste kapitala v celotnem. Strošek kapitala torej ni odvisen od naložbenika ampak od naložbe, in sicer temelji na pričakovanih donosih v tržnih in ne knjigovodskih vrednostih. Odraža tri glavne sestavine: realno mero donosa, ki jo naložbenik pričakuje v zameno za vložek (predpostavljamo netveganost), pričakovano inflacijo in pa tveganje v zvezi s časom prejema denarnega toka.\\
+Kot omenjeno, je celoten kapital sestavljen iz več vrst, in sicer v grobem iz dolžniškega in lastniškega kapitala. Strošek dolga je zato enak tržnim obrestnim meram za posojila, zmanjšanim za davek. Na drugi strani je strošek lastniškega kapitala znesek izplačanih dividend podjetja delničarjem, ki pa nima davčnega ščita.\par
+``Tehtano povprečje stroškov celotnega kapitala torej določimo kot:
+
+\begin{equation}
+WACC=(k_e * W_e)+(k_p*W_p)+(k_{d(pt)}*(1-t)*W_d)
+\end{equation}
+
+Kjer so:\\
+$k_e$... strošek kapitala, ki velja za navadne delnice\\
+$W_e$... odstotek kapitala, ki velja za navadne delnice v sestavi celotnega kapitala, opredeljeni na osnovi tržnih vrednosti\\
+$k_p$... strošek kapitala, ki velja za prednostne delnice\\
+$W_p$... odstotek kapitala, ki velja za prednostne delnice v sestavi celotnega kapitala, opredeljeni na osnovi tržnih vrednosti\\
+$k_{d(pt)}$... strošek dolga pred obdavčitvijo\\
+$t$... davčna stopnja\\
+$W_d$... odstotek dolga v sestavi celotnega kapitala, opredeljeni na osnovi tržnih vrednosti"\\
+(Praznik, 2004, 52.)\\
+
+Če se podrobneje osredotočimo na strošek lastniškega kapitala lahko povemo, da ta vključuje netvegano mero donosa (običajno mera donosa državnega vrednostnega papirja - obveznice, zakladnice,... -, ki je manj tvegan) in pribitek za kapitalsko tveganje (sestavljen iz splošnega pribitka za kapitalsko tveganje glede na ostale naložbe na trgu in pribitkov za majhnost podjetja ter posebnih tveganj). Mero posebnega tveganja, označeno z $\beta$, pa pridobimo iz mer tveganja podjetij, ki so prisotna v isti panogi kot ocenjevano podjetje ter kotirajo na borzi.\\
+``Po modelu ocenjevanja dolgoročnih sredstev (CAPM) tako strošek kapitala izračunamo kot:
+
+\begin{equation}
+E(R_d)=R_n+\beta*ERP
+\end{equation}
+Kjer so:\\
+$R_n$... mera donosa netveganega vrednostnega papirja\\
+$\beta$... koeficient beta, mera posebnega tveganja\\
+$ERP$... pribitek za kapitalsko tveganje (če je $\beta=1$)"\\
+(Praznik, 2004, 54.)\\
+ Model CAPM temelji na razumnosti naložbenikov in njihovi nenaklonjenosti k tveganju, učinkoviti razpršenosti portfeljev racionalnih vlagateljev, transparentnosti in likvidnosti trga,... Obstajajo pa tudi drugi modeli za določanje stroškov lastniškega kapitala:
+\begin{itemize}
+\item \underline{Model dograjevanja}\\
+Ta za razliko od CAPM ne vsebuje koeficienta $\beta$, zato je postavke, ki jih ta odraža potrebno še dodatno upoštevati.
+\item \underline{Model diskontiranega denarnega toka}\\
+Višino diskontne mere pri tem modelu dobimo iz diskontiranja prihodnjih izplačil dividend, na današnjo vrednost, ki predstavlja današnjo tržno vrednost delnice:
+\begin{equation}
+PV=\frac{NCF0*(1+g)}{d-g}
+\end{equation}
+Kjer je:\\
+$PV$... sedanja tržna vrednost delnice\\
+$NCF0$... dividenda, izplačana na eno delnico neposredno pred časom vrednotenja\\
+$g$... predpostavljena konstantna stopnja rasti\\
+$d$... diskontna mera, ki jo iščemo\\
+\\
+\item \underline{Model uravnoteženega določanja stroška kapitala}\\
+Pri tem modelu se koeficient $\beta$ razdeli na posamezne koeficiente, od katerih vsak odraža občutljivost lastniškega kapitala posameznega od dejavnikov tveganja, v primerjavi z občutljivostjo trga.
+\end{itemize}
+Izmed vseh naštetih je metoda CAPM daleč najpogosteje uporabljena predvsem zaradi velike dostopnosti empiričnih podatkov, ki jih za izračun po tej metodi potrebujemo.
+
+
+Način vrednotenja, ki ga trenutno obravnavamo (na donosu zasnovan), obsega dve metodi:
+\begin{itemize}
+\item metoda diskontiranega denarnega toka
+\item metoda uglavničenja
+\end{itemize}
+
+
+\subsubsection{METODA DISKONTIRANEGA DENARNEGA TOKA}:\\
+"Uporabljena metoda temelji na predpostavki, da je vrednost naložbe enaka vsoti vseh prihodnjih donosov, ki jih naložba zagotavlja lastniku. Pri čemer se vsak donos diskontira na sedanjo vrednost z diskontno mero, ki izraža časovno vrednost denarja in mero tveganja, povezano z možnostjo uresničitve pričakovanega donosa." (Praznik, 2004, 69.)\\
+Prednost metode diskontiranja je predvsem teoretična korektnost (zajema sedanjo vrednost vseh v prihodnosti uresničenih denarnih tokov), naročniki pa jo ob vedno bolj množični uporabi sprejemajo kar kot temeljno metodo pri ocenjevanju vrednosti. Po drugi strani pa je projekcija prihodnjih donosov lahko zahtevna, prav tako pa tudi določitev ustrezne diskontne mere. Poleg tega nam težave lahko povzročata tudi odločanje o ustreznem številu let napovedi, ki bo najbolj merodajno in določanje pogostosti predvidevanega donosa.\\
+Pri metodi diskontiranja za lastniški kapital morajo donosi, ki jih uporabljamo za prevrednotenje obsegati le znesek, namenjen lastnikom navadnih delnic, diskontna mera pa le strošek lastniškega kapitala. V primeru računanja vrednosti za celoten kapital pa vzamemo za donose zneske, razpoložljive za vse naložbenike v podjetje, tudi lastnike prednostnih delnic in posojilodajalce, za diskontno mero pa vzamemo prej opisani WACC. \\
+
+Denarni tok podjetja, s katerim torej določamo njegovo vrednost, imenujemo prosti denarni tok (FCF - Free Cash Flow). Ta je najprimernejše merilo za ekonomski donos, saj je to znesek, s katerim podjetje lahko razpolaga, ne da bi ogrozilo načrtovano dejavnost  in denarni tok v prihodnosti.\\
+\\
+``Za lastniški kapital ga opredelimo takole:\\
+\textbf{čisti dobiček} (po davku na dobiček)\\
+\textbf{+nedenarni stroški} (amortizacija, povečanja dolgoročnih rezervacij)\\
+\textbf{-naložbe v osnovna sredstva }(v obsegu, ki je potreben za uresničitev načrtovanega obsega aktivnosti)\\
+\textbf{+denar, pridobljen z dezinvestiranjem} (v obsegu, ki je potreben za prilagoditev sredstev načrtovanemu obsegu aktivnosti)\\
+\textbf{-vlaganja v obratni kapital }(obsegu, ki je potreben za uresničitev načrtovanega obsega aktivnosti)\\
+\textbf{+denar iz novo najetih posojil} (v obsegu, ki je potreben za uresničitev načrtovanega obsega aktivnosti)\\
+\textbf{-odplačila anuitet iz najetih posojil}\\
+\textbf{=čisti denarni tok  za lastniški kapital}\\ " (Praznik, 2004, 70.)\\
+
+Če namesto čistega dobička upoštevamo dobiček iz poslovanja, prilagojenega za davčno stopnjo na dobiček in odvzamemo zadnji dve postavki (denar in novo najetih posojil in pa odplačila anuitet) pa dobimo FCF za celoten kapital podjetja.\\
+
+Sledi diskontiranje na današnjo vrednost, za kar uporabimo osnovni princip financ:
+\begin{equation}
+PV=\frac{CF_1}{1+r}+\frac{CF_2}{(1+r)^2}+\frac{CF_3}{(1+r)^3}+\ldots+\frac{CF_n}{(1+r)^n}
+\end{equation}
+Kjer so:\\
+$PV$...sedanja vrednost\\
+$CF1, CF2, CF3$,... ...denarni tokovi v prihodnosti\\
+$r$...zahtevana stopnja donosa\\
+$1,2,3,...n$ ...število časovnih obdobij diskontiranja\\
+
+Vrednotenje na osnovi diskontiranja denarnih tokov v večini primerov predpostavlja trajni obstoj podjetja, torej sredstva nimajo določene življenjske dobe, zato je denarne tokove potrebno napovedati zelo daleč v prihodnost. Posledično vrednotenje poenostavimo tako, da prihodnost razdelimo na obdobje eksplicitne napovedi denarnih tokov in na preostalo obdobje, od konca eksplicitnega napovedovanja do neskončnosti. \\
+Sedanje vrednosti pričakovanih donosov torej preračunamo z diskontiranjem napovedanih tokov, za določanje preostale vrednosti pa lahko uporabimo več metod, med katerimi je najpogostejša in najustreznejša metoda Gordonovega modela rasti. Pri tem moramo poleg že določenih zneskov v prihodnosti in izbranega obdobja eksplicitne napovedi le teh, oceniti še dolgoročno konstantno stopnjo rasti denarnega toka, po obdobju konkretne napovedi. V tem primeru se zgornja enačba prepiše v:
+
+\begin{equation}
+PV=\frac{CF_1}{1+r}+\frac{CF_2}{(1+r)^2}+\frac{CF_3}{(1+r)^3}+\ldots+\frac{CF_n}{(1+r)^n}+\frac{\frac{CF_n*(1+g)}{r-g}}{(1+r)^n}
+\end{equation}
+Kjer nova oznaka $g$ pomeni ocenjeno konstantno stopnjo rasti denarnega toka v prihodnosti.\\
+\\
+Vrednosti, dobljene po metodi diskontiranja prilagodimo z uporabo prej omenjenih odbitkov za pomanjkanje tržljivosti in neobvladovanje, kar je odvisno od velikosti deleža, ki ga ocenjujemo.
+
+
+\subsubsection{METODA UGLAVNIČENJA (KAPITALIZACIJE)}:\\
+Ta metoda je poenostavljena različica prejšnje, saj ta ne temelji na natančni projekciji prihodnjih donosov, pač pa predpostavlja konstantno rast ali padec normaliziranega letnega donosa, v neskončnost. Kot prvo, tudi metodo uglavničenja lahko uporabljamo za obe vrsti kapitala (lastniški ali celotni). Pri prvi zopet za donos uporabimo vsa razpoložljiva sredstva za izplačilo dividend navadnim delničarjem, pri drugi pa vsem možnim naložbenikom. Mera uglavničenja pri lastniškem kapitalu je tako strošek lastniškega kapitala, pri celotnem pa ponovno WACC.\\
+Pri tej metodi spremembe v pričakovanih prihodnjih donosih izražamo preko mere uglavničenja, ne pa preko posebnih napovedi donosov, kot pri prejšnjem primeru. Velja pa, da ob upoštevanju konstantne stopnje rasti donosa pri opredelitvi napovedi donosov v prejšnjem modelu, dasta obe metodi enak rezultat.\\
+Spremembe donosov pri metodi uglavničenja torej dosežemo preko stopnje rasti iz že omenjenega Gordonovega modela:
+
+\begin{equation}
+c=d-g
+\end{equation}
+Kjer je:\\
+$c$... mera uglavničenja\\
+$d$... diskontna mera\\
+$g$... stopnja rasti (teoretično v neskončnosti)\\
+(Praznik, 2004)\par
+
+V primeru upoštevanja WACC kot diskontne mere torej dobimo mero uglavničenja za celoten kapital ($c_k$):
+\begin{equation}
+c_k=WACC-g
+\end{equation}
+
+Osnovna formula, po kateri torej poračunamo vrednost deleža po metodi uglavničenja, je oblike:
+\begin{equation}
+PV=\frac{NDT_1}{c}
+\end{equation}
+Kjer je:\\
+$PV$... sedanja vrednost deleža\\
+$NDT_1$... čisti denarni tok, pričakovan takoj po dnevu ocenjevanja vrednosti\\
+$c$... mera uglavničenja (v tem primeru enaka diskontni meri)\\
+(Praznik, 2004)\par
+
+Ob dodatnem upoštevanju rasti donosa ($g$), pa se ta preoblikuje v:
+\begin{equation}
+PV=\frac{NDT_0*(1+g)}{d-g}
+\end{equation}
+Kjer moramo kot čisti denarni tok vzeti tistega, neposredno pred datumom ocenjevanja, ker pričakujemo njegovo rast/padec v prihodnosti, in sicer že takoj v obdobju $1$.\par
+
+Kot vidimo, se v vsakem izmed načinov vrednotenja pojavi potreba po prilagoditvah dobljene vrednosti. Te se predvsem nanašajo na velikost lastniškega deleža, ki ga ocenjujemo. Ker bo to eden ključnih konceptov tudi pri cenitvi deleža podjetja Domel, se osredotočimo v nadaljevanju na omenjene prilagoditve.
+
+
+
+
+\section{Prilagoditve vrednosti, dobljene po vrednotenju}
+Vrednotenje podjetja se večkrat izvaja na podlagi predpostavk, ki pa v končnem vrnejo le približno vrednost in ne točne. Deleži, ki jih ocenjujemo se lahko namreč razlikujejo glede na velikost, lastninske pravice, posedovane poslovne informacije deležnika,... Prav tako moramo v obzir vzeti stanje panoge, s katero se podjetje ukvarja ter ekonomije, strukturo kapitala podjetja, njegovo odprtost za investitorje,... Prilagoditve vrednosti se tedaj v računanje sedanje prave vrednosti podjetja vnese preko t.i. odbitkov in pribitkov. Z vidika lastniškega deleža poznamo dva glavna koncepta le teh, in sicer odbitke in pribitke, ki so povezani z bistvom ocenjevanega podjetja in tiste, povezane z značilnostmi lastništva v njem. Prva skupina je neodvisna od velikosti deleža lastnika in njegovih upravljalskih zmožnosti. Upoštevamo jih že pred odbitki iz druge skupine, in sicer jih dodajamo že diskontni meri, meri uglavničenja ali pa ustrezno zmanjšamo mnogokratnik (odvisno od vrste metode, ki jo uporabljamo). Primeri takšnih odbitkov so: odbitek zaradi vpliva ključne osebe, zaradi sodnih sporov, tržnih tveganj, ekoloških problemov,... \\
+Pomembnejša pa je druga skupina odbitkov, ki se deli na dva večja razreda, in sicer na odbitke zaradi neobvladljivosti in zaradi pomanjkanja tržljivosti. Te pa, v nasprotju s prvo skupino, navadno upoštevamo šele na koncu, ko smo sredstvo že ovrednotili. Dobljena ocena vrednosti nam torej predstavlja osnovo, na katero apliciramo prilagoditev in je lahko različnih zvrsti. Predstavlja lahko vrednost za obvladujočega lastnika, za manjšinskega lastnika v lastniško odprtem ali zaprtem podjetju, strateško vrednost za naložbenika,... (Praznik, 2004, 103.)\par
+Dobljene osnovne vrednosti pa se med seboj razlikujejo tudi zaradi različnih metod, po katerih ocenjujemo. Tako pri na donosu zasnovanem načinu dobimo vrednost obvladujočega ali manjšinskega lastnika (odvisno od vrste uporabljenih denarnih tokov), kjer pa je privzeta popolna tržljivost. Pri uporabi načina tržnih primerjav dobimo pri metodi primerljivih podjetij, uvrščenih na borzi, vrednost za manjšinskega lastnika, zopet ob predpostavki popolne tržljivosti. Pri metodi primerljivih kupoprodaj pa navadno dobimo vrednost, ki ustreza obvladujočemu deležu, zato na njo v primeru zaprtega podjetja apliciramo še odbitek za pomanjkanje tržljivosti ter za neobvladovanje, če iščemo vrednost manjšinskega deleža. Enako kot za metodo primerljivih kupoprodaj pa velja tudi za na sredstvih zasnovan način.\\
+Osredotočimo se torej na dva najpomembnejša sklopa odbitkov. Za nas bo v prihodnje pomembnejši odbitek zaradi pomanjkanja tržljivoti, a ker velikost lastniškega deleža preko ravni obvladovanja v veliki meri določa stopnjo tržljivosti, moramo najprej analizirati vidik obvladovanja in z njim povezano prilagoditev. 
+
+
+
+\subsection {Odbitek za neobvladljivost}:\\
+Vpliv možnosti obvladovanja podjetja na vrednost ocenjevanega deleža je vse prej kot zanemarljiv. Velikost odbitka je sicer v splošnem v primerih večjega deleža obvladljivosti (nad $50\%$) manjša kot pri manjšem deležu, podrobneje pa obstaja še več pomembnih razlogov za njegov nastanek in višino. Oglejmo si nekatere med njimi.
+\begin{itemize}
+\item Vpliv državnih predpisov\\
+Ti se po svoji vsebini razlikujejo od države do države. Dejstvo je, da ponekod na pomembnejše odločitve v podjetju lahko vpliva šele delničar z več kot $50\%$ lastništvom, drugje pa je za to dovolj šele dvo-tretjinski deležnik, kar pomeni, da že delničar z več kot 1/3 delnic podjetja, lahko prepreči izvajanje določenih sprememb. V tem primeru je torej enotretjinski lastniški delež mnogokrat bolj cenjen od le malo manjšega, zato je odbitek vrednosti za neobvladljivost pri njem precej manjši. Velikost odbitka se lahko razlikuje tudi glede na zmožnost razrešitve vodilnih ljudi v podjetju s trenutnega položaja, s strani malih delničarjev. Tudi ta pravica delničarjev se namreč razlikuje od države do države, nenazadnje tudi od podjetja do podjetja.
+\item Interni predpisi v podjetju\\
+Podjetja si do določene mere lahko preoblikujejo predpise v sebi bolj ustrezne, čeprav se razlikujejo od državnih. V tem kontekstu je dober primer uvedba dvotretjinske večine za prevlado na glasovanjih, kljub državnim predpisom, ki določajo polovično podporo. 
+\item Redčenje lastništva\\
+Gre za spremembo porazdelitve lastništva v podjetju, ki je posledica na novo izdanih delnic ali pa prodaje delnic nazaj podjetju. Podjetje namreč s prodajo sebi lastnih delnic med delničarje (nove ali obstoječe), lahko zmede strukturo lastništva na način, ki lahko pomembneje vpliva na stopnjo obvladljivosti posameznega lastnika. 
+\item Predkupna pravica\\
+Nekatera podjetja v svojem statutu določajo predkupno pravico svojim obstoječim delničarjem. Ta jim daje možnost, da se prvi odločajo o nakupu lastnih ali na novo izdanih delnic podjetja, preden to lahko stori tretja oseba (ki trenutno ni lastnik). Prav ta ukrep naj bi delničarje branil pred pretirano spremembo lastništva. 
+\item Način izvolitve vodilnih v podjetju\\
+V nekaterih podjetjih, pravila pri glasovanju za določanje vodilnih dovoljujejo, da deležnik vse svoje glasove da isti osebi. S tem bi, v primeru posedovanja dovolj velikega deleža, lahko onemogočil prevlado želja manjšinskih delničarjev. Temu pravimo kumulativno voljenje.
+\item Pogodbene omejitve\\
+Določene omejitve pravic delničarjev, kot so neizplačevanje dividend delnic, izključenost pri delitvi premoženja ob likvidaciji podjetja, pomanjkanje pravic pri soodločanju o prevzemih podjetja ali prerazporeditvi vodstva,... lahko ključno vplivajo na višino odbitka, torej na vrednost ocenjevanega deleža.
+\item Finančno stanje podjetja\\%%%
+Mnoge pravice, povezane z obvladovanjem podjetja, so lahko označene kot ``ekonomsko prazne" preprosto zaradi finančnega stanja podjetja. V to štejemo pravico do soodločanja pri delitvah dividend, prodaji in nakupu sredstev ali delnic, nakupu drugih podjetij,... Podjetja na primer, ki dosegajo visoke donose pri poslovanju, ne uživajo tudi visokega pribitka za obvladovanje, če je večina pravic kontroliranja že porazdeljena med delničarje. 
+\item Visoko regulirana panoga\\
+Pri podjetjih, vključenih v panoge z visoko regulacijo s strani državnih predpisov, se odbitek za neobvladljivost lahko pojavi tudi pri $100\%$ lastniškem deležu. Razlog za to je, da tudi obvladujoči deležniki nimajo toliko pravic pri odločanju o podjetju, kot jih imajo lastniki manj reguliranih podjetij. Govorimo o sposobnostih državnih oblasti, da odloča o likvidaciji podjetja, njegovi prodaji, nakupu, začetku nove proizvodnje,... Če primerjamo torej manj regulirane panoge z bolj reguliranimi, je razlika v odbitku za neobvladljivost med manjšinskim in večinskim deležnikom pri prvih precej večja kot pri drugih. Razlog za to je namreč dejstvo, da tudi pri podjetjih, ki so bolj regulirana s strani države, niti večinski niti manjšinski lastnik nima popolnega nadzora nad vodenjem.
+\item Sporazumi delničarjev o nakupu in prodaji delnic\\
+V nekaterih podjetjih se lahko med delničarji oblikujejo dogovori o vrednotenju delnic pri njihovi prodaji ali nakupu bodisi neposredno med delničarji, bodisi med njimi in podjetjem. Primer takšnega dogovora je sklep, da se vse delnice (torej tudi manjšinski deleži) vrednotijo kot da imajo polno moč pri obvladovanju podjetja. V tem primeru se torej odbitek za neobvladljivost na njihovo vrednost ne aplicira.
+\item Fiduciarna odgovornost\\
+Včasih večinski lastniki ne morejo uživati vseh pravic, ki jim jih posedovani delež daje, ker imajo določene obvezosti do manjšinskih lastnikov. Pri tem mislimo na primer na enakovredno delitev dobička med vse delničarje. Tako obvladujoče kot neobvladujoče lastnike se tretira enako, zato je odbitek za neobvladljivost pri manjšinskem deležniku precej manjši kot sicer. Kljub temu pa je res, da je situacij, kjer bi se vse lastnike gledalo kot enakovredne, zelo malo.
+\item Zasebno podjetje z javnimi vrednostnimi papirji\\
+Deleži podjetij, ki imajo sicer vse delnice v internem lastništvu, hkrati pa so njihove obveznice javne, uživajo manjši odbitek neobvladljivosti. Razlog za to je dejstvo, da je podjetje z javnimi vrednostnimi papirji dolžno javno objavljati informacije, do katerih sicer manjšinski lastniki ne bi imeli dostopa. To so na primer informacije o finančnem poslovanju podjetja, transakcijah med deležniki in podjetjem... V takšnem primeru pa so tudi določene prednosti obvladujočega deleža izničene.
+\item Podjetje z internim lastništvom, ki deluje kot javno lastninjeno\\
+Podjetja, ki se kljub internemu trgu delnic obnašajo in delujejo v skladu s predpisi javno lastninjenih podjetij, so podvržena manjšemu odbitku neobvladljivosti. V tem primeru imajo namreč vsi delničarji enake informacije o podjetju in poslovanju, zato so razlike med večinskim in manjšinskim lastnikom manj očitne in manj ključne.
+\item Obvladovanje podjetja je enakomerno razpršeno\\
+V primeru, ko si na primer podjetje lasti 20 delničarjev, s približno enako velikimi deleži, se razlike med obvladujočim in neobvladujočim lastnikom zabrišejo. Vsi imajo približno enak vpliv na delovanje podjetja, zato je omenjeni odbitek manjši.
+\item Vpliv presežnih sredstev\\
+Količina sredstev, ki niso nujna za vsakdanjo delovanje podjetja, lahko vpliva na osnovo za apliciranje odbitka za neobvladljivost, v primeru, da jih podjetje v kratkem planira prodati in razdeliti dobiček v obliki dividend ali pa pretvoriti v dejavnost, ki bo prinašala dobiček v prihodnosti.
+\end{itemize}
+(Valuing a business, 2008)\\
+
+V omenjenih postavkah je prilagoditev včasih obravnavana kot odbitek, drugič pa kot pribitek. Med slednjima pa obstaja povezava preko sledeče formule:
+\begin{equation}
+odbitek\ za\ neobvladljivost=1-\frac{1}{1+pribitek\ za\ obvladovanje}
+\end{equation}
+
+V splošnem pri vrednotenju manjšinskega deleža podjetja moramo v obzir vzeti dejstvo, da lastnik z manjšim deležem nima pravice razpolagati s presežnimi sredstvi podjetja, kakor je to v domeni večinskega lastnika. Posledično se pri opredelitvi prostega denarnega toka, znesek razlikuje za oba lastnika. Ob vrednotenju celotnega podjetja namreč stroške, ki jih oblikujejo večinski lastniki, štejemo v razpoložljiv znesek za njihove dividende. Na drugi strani pa ta vrednost za manjšinskega lastnika v resnici mora biti zmanjšana za vpliv večinskih lastnikov, ki razpolagajo z določenimi sredstvi podjetja. Prost denarni tok za neobvladujočega delničarja je torej avtomatsko manjši.
+
+
+\subsection{Odbitek zaradi pomanjkanja tržljivosti}:\\
+Po podrobni opredelitvi odbitka za neobvladljivost, sledi analiza vpliva stopnje tržljivosti. Splošno znano dejstvo je, da je sredstvo, ki ga je moč hitreje prodati dalje, za investitorja vredno več, kot tisto z manj potencialnimi kupci. Deleži lastnikov v lastniško zaprtih podjetjih so predmet manjše tržljivosti v primerjavi z drugimi naložbami na trgu. Zato je za ocenjevalca vrednosti pomembno preučiti vpliv nižje tržljivosti sredstva in z njo povezane nelikvidnosti. V tem kontekstu pojem nelikvidnosti razumemo kot zmanjšanje sposobnosti lastnika celotnega podjetja, da pretvori svoja naložbena sredstva v denar hitro in s čim manjšimi stroški. Hkrati pa pomanjkanje tržljivosti opredeljuje isto nezmožnost za manjšinskega delničarja. Posledično bomo pri odbitkih zaradi manjše likvidnosti govorili o sposobnostih prodaje večjih deležev, sredstev podjetja, o združitvah,... Odbitki zaradi pomanjkanja tržljivosti pa se nanašajo na prodajo manjših deležev in posameznih delnic. \par
+Razlogov za nastanek različnih stopenj obeh omenjenih odbitkov zaradi pomanjkanja tržljivosti je več:
+\begin{itemize}
+\item Prodajna pravica\\
+Najmočnejši dejavnik, ki bi lahko v celoti izničil vpliv tega odbitka je pravica do prodaje deleža. Pri tem mislimo na deležnikovo prodajo ob določenem pogodbenem času ali pogojih, po dogovorjeni ceni. Ta pravica nam torej zagotavlja prodajo deleža v določenih okoliščinah, kar pomeni, da je strah nezmožnosti prodaje odvečen. 
+\item Izplačila dividend\\
+Delnice brez ali z nizkim zneskom izplačanih dividend so deležne večjega odbitka za pomanjkanje tržljivosti, kot tiste z visokimi donosi. Velja namreč, da dobiček lastnika delnice z večjimi dividendnimi izplačili ni odvisen le od kapitalskega donosa ob prodaji deleža. Več dobi že sproti v času imetja papirja, zato je takšna delnica precej bolj zaželjena med investitorji in lažje prodajljiva. 
+\item Potencialni kupci\\
+Obstoj sprejemljivega števila potencialnih kupcev deleža, ali celo enega z dovolj velikim potencialom nakupa, zmanjša velikost odbitka tržljivosti. 
+\item Stopnja interesa\\
+Za primer lahko vzamemo dejstvo, da se večji paket delnic težje proda. Razlog je manjše zanimanje potencialnih kupcev, saj so transakcije, povezane s tem nakupom, sorazmerno večje. Odbitek za netržljivost je torej večji, po drugi strani pa vemo, da je tovrstna prilagoditev zaradi večje obvladljivosti manjša. 
+\item Verjetnost, da podjetje postane javno\\
+V primeru, da je v bližnji prihodnosti zasebnega podjetja zelo verjetna (na primer) kotacija delnic na borzi, bo odbitek za pomanjkanje tržljivosti manjši. V kratkem se namreč pričakuje, da bo vrednost delnice narasla, ker bo le ta podvržena širšemu trgu in možnosti večjega povpraševanja. Res pa je, da je takšen razplet navadno negotov in težko napovedljiv.
+\item Dostop in zanesljivost informacij\\
+V primeru, da manjšinski deležnik nima dovolj informacij o poslovanju in stanju podjetja, je vrednost delnice z njegovega vidika manjša. Težje namreč oceni možnost prodaje svojega deleža dalje.
+\item Pogoji prodaje restriktivnih delnic\\
+V nekaterih podjetjih so oblikovani različni pogoji trgovanja z restriktivnimi delnicami, ki še dodatno omejujejo njihovo prodajo in nakup na področju cene, količine, potencialnih kupcev,... kar zaradi težjega trgovanja povzroči večji odbitek zaradi netržljivosti.
+\item Karakteristike podjetja\\
+Pretekla finančna stanja podjetja močno vplivajo na stopnjo tržljivosti, saj je v primerih konstantnega poslovanja tveganje nenadnega propada manjše in se delež lažje proda. Na drugi strani pa je podjetje, ki ima zelo razgibano finančno preteklost tako v smislu porasta dobička kot njegovega padca, bolj tvegano za naložbenika. S tem povezujemo tudi vpliv velikosti podjetja. Večji obseg poslovanja navadno pomeni stabilnejše podjetje, kar pa manjša odbitek. 
+\end{itemize}
+Kot že omenjeno, je obravnavani odbitek močno povezan s stopnjo obvladljivosti ocenjevanega deleža, vendar velja, da je uporaba statističnih podatkov kot osnove za določanje odbitka za pomanjkanje tržljivosti, bolj naklonjena ocenjevanju manjšinskega deleža. Pri vrednotenju zasebnih podjetij si torej ocenjevalci za osnovo, na katero bodo aplicirali odbitek, lahko izberejo vrednost restriktivnih delnic (delnice, s katerimi določen čas ni možno trgovanje na odprtem trgu) ali pa (ustrezneje) začetnih javnih ponudb (vrednost ponudbe za delnice pred postavitvijo njihove cene na borzi). In ko govorimo o manjšinskem deležu, se odbitek pri njegovi vrednosti giblje od $30\%$ do $50\%$ tržne cene delnice.
+\subsubsection{Določanje odbitka na podlagi vrednosti restriktivnih delnic}:\\
+Takšen način vrednotenja za osnovo privzema vrednost restriktivne, na primer pisemske delnice, ki se od kotirane delnice na borzi razlikuje le po tem, da je z njo določeno obdobje nemogoče javno trgovati. Tržljivost je torej edina razlika med pisemsko in javno tržljivo delnico istega podjetja, zato je njen vpliv toliko lažje razbrati.\\
+Javna podjetja običajno izdajo pisemske delnice v primerih prevzemanja drugih podjetij ali dviga lastnega osnovnega kapitala. Njihova registracija preko javne družbe je namreč nepraktična z vidika porabljenega časa in stroškov izdaje. Poleg tega, je v tem primeru podjetje dolžno objavljati določene podatke o trgovanju z omenjenimi delnicami, tudi če le to poteka izključno znotraj internega trga delnic. \par
+Uporaba primerjave z vrednostmi restriktivnih delnic je s strani ocenjevalcev vrednosti zelo pogosta. Kljub temu pa velja, da je zaradi dejstva, da bo lastnik restriktivne delnice lahko po določenem obdobju delnico prodal na organiziranem trgu, le ta danes za njo pripravljen plačati več kakor za delež v lastniško zaprti družbi. Zasebni delež ima namreč zelo malo možnosti, da bo kdaj podvržen trgovanju na borzi. Prav zato pa nam odbitek, dobljen preko primerjave z restriktivnimi delnicami še vedno ne daje realne vrednosti. Zaradi te omejenosti raziskav restriktivnih delnic, so ocenjevalci pričeli primerjati cene trgovanj z delnicami, ki so bile realizirane pred prvo javno ponudbo s cenami delnic istega podjetja, ko so bile le te že uvrščene na borzo.
+\subsubsection{Določanje odbitka na podlagi vrednosti pred prvo javno ponudbo}:\\
+Kot pomoč pri oceni višine odbitka se lahko privzame tudi vrednost delnice pred prvo javno ponudbo. To je vrednost, ki še ni obremenjena z delovanjem trga in podvržena tržljivosti, kakor delnica, ki že dalj časa kotira na borzi. Odbitek je torej po tej metodi vrednoten toliko, kot je razlika med ocenjeno vrednostjo delnice pred njenim pojavom na borzi ter njeno vrednostjo pri kotaciji na javnem organiziranem trgu.  \\
+
+
+Prav tako kot pri vrednotenju manjšinskega deleža podjetja, pa moramo odbitek za pomanjkanje tržljivosti aplicirati tudi na obvladujoči delež. Pri tem, kot omenjeno, uporabljamo izraz ``nelikvidnost", ki označuje nezmožnost lastnika podjetja hitro in s čim manjšimi stroški unovčiti svojo lastnino. V primerjavi z lastnikom posamezne delnice oziroma manjšega deleža podjetja, obvladujoči lastnik v lastniško zaprtem podjetju precej težje proda svoj delež. Ker pa je o določanju odbitka zaradi pomanjkanja tržljivosti obvladujočih deležev zelo malo empiričnih podatkov, je pri preučevanju potrebno upoštevati posebnosti vsakega posameznega primera.%%% Na znanje moramo pri tem vzeti dejstvo, da pomanjkanje tržljivosti pri obvladujočem deležu povzroča znatno manjši odbitek kot pri manjšinskem.%%
+Prodaja večinskega deleža podjetja je namreč zahteven, trajen in negotov postopek, kar še toliko bolj velja za deleže zasebnih podjetij. Postopek unovčitve obvladujočega deleža podjetja zajema pridobitev ponudb za nakup deleža in zasebno prodajo celotnega podjetja ali vsaj večinskega deleža. Lastnik takšnega deleža mora torej pri prodaji obravnavati naslednja dejstva:
+\begin{itemize}
+\item Negotovost trajanja časovnega obdobja, v katerem bo prodaja izvršena\\
+Do določene mere sicer lahko daljše obdobje čakanja kompenzirajo donosi deleža, ki jih lastnik v tem času še vedno prejema.
+\item Stroški, ki nastanejo zaradi postopka prodaje\\
+S tem mislimo na stroške postopka pridobitve potencialnih kupcev in njihovih zahtev, stroške za pridobitev potrebne dokumentacije in pogajanj glede jamstev ter administrativne stroške za delo z odvetniki, računovodji, potencialnimi kupci ali njihovimi predstavniki,...
+\item Tveganje povezano z dejansko doseženo vrednostjo posla\\
+Stopnja takšnega tveganja je navadno visoka, saj je posel ovrednoten le s pričakovano vrednostjo, poleg tega pa na dolgotrajen postopek trgovanja lahko vplivajo tako zunanji kot notranji dejavniki. Dalje lahko dodamo, da vedno obstaja tveganje, da se posla sploh ne da skleniti, ne glede na pričakovano ceno. Velja namreč, da kljub običajni dovzetnosti javnih trgov za transakcije z delnicami različnih podjetij iz različnih industrij, nekatera zasebna podjetja nikoli ne bodo javno sprejeta.
+\item Oblika postopka transakcije\\
+%%%%%%%%%%%
+Čeprav je postopek prodaje že zaključen, lahko kupec plačilo deloma izvrši mnogo kasneje ali pa v obliki delnic, ki so navadno restriktivne. V tem primeru vrednost delnice zasebnih podjetij (kot razloženo prej) ni enakovredna restriktivni delnici odprto lastniških družb.
+%%%%%%%%%%%
+\item Nezmožnost predhodnega izplačila\\
+Celo prodaja obvladujočega deleža zasebnih podjetij bankam običajno ne predstavlja dovolj gotovega posla. Prav zato lastniku, ki čaka na prodajo, ne bodo vnaprej izplačale predvidenega zneska, ki naj bi ga dobil pri prodaji svojega deleža, tudi če ta denar nujno rabi.
+\end{itemize}
+Navedli smo že dva načina, kako najlažje dobimo primerljivo vrednost za določanje višine odbitka pri manjšinskem deležu, sedaj pa se osredotočimo še na obvladujočega. Odbitek zaradi pomanjkanja likvidnosti tako lahko določimo glede na:
+\begin{itemize}
+\item Ceno, ki jo prodajalec deleža doseže na javnem trgu pri prvi ali drugi ponudbi 
+\item Ceno, doseženo pri zasebni prodaji lastniško popolnoma zaprtih podjetij
+\item Nakupe obvladujočih deležnikov javno financiranih podjetij
+\end{itemize}
+
+Da imata lastništvo podjetja in njegova odprtost trgu znaten vpliv na njegovo vrednost, je vidno tudi iz razlik vrednosti v prejšnjem poglavju omenjenih multiplikatorjev med javnimi in zasebnimi podjetji. Navadno so namreč povprečni multiplikatorji za nakup zasebnega podjetja precej nižji od tistih, za javno podjetje. Razlogov za tovrstno razliko pa je več:
+\begin{itemize}
+\item Izpostavljenost trgu
+\item Kvaliteta in zanesljivost računovodskih podatkov 
+\item Učinek velikosti
+\end{itemize}
+Podatki o javnih podjetjih in njihovih cenah delnic so vsakodnevno objavljeni v raznih medijih in predstavljajo lahko dostopne informacije za potencialne vlagatelje. Tovrstna podjetja so do določene mere tudi dolžna objavljati nekatere podatke na spletnih straneh in na raznih srečanjih z mediji. Nasprotno pa to ne velja za zasebna podjetja, ki svojih podatkov ne razkrivajo javnosti, zaradi česar se potencialni kupci težje odločajo o njihovem nakupu. V izboru zasebnih podjetij zaradi pomanjkljivih informacij namreč ne znajo izbrati najbolj ustreznega. Manjša izpostavljenost trgu torej preko odbitka zaradi pomanjkanja tržljivosti povzroča nižjo vrednost podjetja.\\
+Podjetja, ki vodenje računovodskih storitev in upravljanje z delnicami prepustijo posebnim družbam, ki so za to specializirane, se v javnosti pojavljajo z zelo zanesljivimi in urejenimi podatki. Posledično pa so za vlagatelje bolj zanimiva, saj se njihov nakup zdi manj tvegan. Večje zanimanje za nakup tako prinaša večjo tržljivost in višjo vrednost deleža.\\
+Velikost podjetja pa je po mnenju nekaterih analitikov še tretji dejavnik, ki pripomore k razlikovanju multiplikatorjev vrednotenja podjetij. Zasebna podjetja so namreč navadno manjša od javnih in imajo hkrati nižje vrednosti. \\
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Vrednotenje delnice podjetja X}
+\subsection{Kratka predstavitev podjetja}:\\
+
+Podjetje X je eno večjih slovenskih industrijskih podjetij, ki deluje že od leta 1946, njegova glavna dejavnost pa je proizvodnja električnih motorjev in komponent iz laminatov, aluminija, termo plastike,... Njihovi izdelki se uporabljajo večinoma za vgradnjo v vakuumske enote, pa tudi na področju bele tehnike, prezračevanja, avtomobilske proizvodnje, medicine,...
+Največji izvozni trg jim predstavlja Nemčija, v manjši meri pa sodelujejo tudi z Madžarsko, Švedsko, Poljsko, Italijo, Avstrijo, Romunijo,... Zgovoren podatek o njihovi uspešnosti je tudi dejstvo, da je, kot že omenjeno zgoraj, v kar šest od desetih prodanih sesalnikov v Evropi, vgrajen motor, ki je proizveden v podjetju X. V svetovnem merilu sodelujejo s podjetji kot so Elektrolux, Philips, Rowenta, Stihl, Husqvarna, Samsung,... poleg štirih proizvodnjih enot v Sloveniji pa ena obratuje tudi na Kitajskem.\par
+Podjetje X ima zelo pestro zgodovino, tako z vidika menjave področij delovanja, kakor tudi načina in organizacije vodstva. Prvih 12 let od ustanovitve se je ukvarjalo predvsem s predelavo in izdelavo kovinskih izdelkov. Po še dveh preimenovanjih se šele leta 1994 oblikuje v delniško družbo, v letu 2010 pa večjo prelomnico za podjetje pomeni preoblikovanje iz delniške družbe v družbo z omejeno odgovornostjo. Posebnost podjetja je, da ostaja v lasti zaposlenih, bivših zaposlenih in upokojencev, kar pa je v slovenskem gospodarskem prostoru edinstven primer. Leta 1998, v času množičnega lastninjenja slovenskih podjetij, so delavci podjetja X reorganizirali združenje notranjih delničarjev v družbo pooblaščenko. To so storili iz strahu pred domnevnim sovražnim prevzemom podjetja s strani tuje družbe, ki naj bi podjetje želela prevzeti zaradi že takrat velikega tržnega deleža v Evropi (20\%). Prihodnost pooblaščenke je bila sicer zelo negotova in mnogi so obetali propad podjetja, v primeru da ta ne dobi močnega strateškega partnerja. Ampak strah delavcev je bil močnejši, zato je skupina glavnih zastopnikov delničarjev pričela odkupovati delnice vseh ostalih in tako večati svoj lastniški delež. Posledično so na odločilni skupščini ohranili vlogo najmočnejšega lastnika matičnega podjetja in s tem zavarovali lastne interese ter preprečili sovražni prevzem. Delnice je pooblaščenka v veliki meri predala matičnemu podjetju, ki jih je nato razdelilo svojim zaposlenim. Tako danes lastniki podjetja v 92,36\% deležu ostajajo zaposleni, bivši zaposleni in upokojenci. Ostalih 7,64\% pa ostaja delnic vplačanih z denarjem, torej ne nujno del pooblaščenke. Tudi te z dohodkom iz dejavnosti, ki jih opravlja, pooblaščenka odkupuje in tako še veča delež lastništva matičnega podjetja. \\
+Proizvodnja motorjev, ki so glavni program podjetja X, se je povečala za 50\%, močno pa se je povečala tudi prodaja v ZDA. Dobiček se je povečal za 4 krat, investicije v novo tehnologijo pa za 4,5 krat. V tem času so ohranili prav vse kupce in pridobili nove na tržiščih, na katerih podjetje do tedaj še ni bilo prisotno.
+
+\subsubsection{Osnovno o delnicah podjetja X}:\\
+
+Kot razloženo je torej podjetje X delniška družba, katere večinski lastniki so zaposleni ($52,66\%$), upokojenci ($30,51\%$) in bivši zaposleni ($9,06\%$). Podjetje ima tudi $0,13\%$ lastnih delnic, ki jih predvsem v zadnjih obdobjih skuša razporediti izključno v roke zaposlenih.\\
+V celoti so delnice družbe razdeljene na tiste z oznako A in tiste z oznako B. Imetnik delnice A ima pravico do enega glasu na skupščini, do sorazmernega izplačila dividend ter do sorazmernega dela iz ostanka stečajne ali likvidacijske mase, v primeru stečaja podjetja. Glasovalne pravice vsakega delničarja so omejene, in sicer na 2 odstotka izdanih glasovalnih delnic, ne glede na dejanski delež njegovega lastništva.\par
+Posebnost delnic podjetja X je, da so vinkulirane, kar pomeni, da je za njihov prenos lastništva zunaj kroga obstoječih delničarjev potrebno posebno soglasje nadzornega sveta. Na ta način se ohranja zaprt krog lastnikov podjetja. V primeru, da so delnice z oznako A ponujene obstoječim delničarjem, imetnikom delnic z oznako A ter v 30 dneh ni prišlo do prodaje, predkupno pravico dobi družba (za sklad lastnih delnic). Če ta v istem obdobju (30 dni) te pravice ne uveljavi, lahko delničar šele s soglasjem nadzornega sveta delnice ponudi tretji osebi.
+Za delnice z oznako B, ki so pridobljene na podlagi stvarnega vložka saj jih je delničar vplačal z gotovino pa velja, da se lahko prosto prenašajo tudi izven kroga obstoječih delničarjev. Poleg tega njihova prodajna cena ni vezana na upoštevanje določb statuta družbe, kot to velja za delnice A. V primeru, da družba ne koristi predkupne pravice delnic z oznako B, lahko delničar le te brez soglasja prosto proda tretji osebi.\par
+Pri prodaji velja, da ceno delnic, ki se uporablja za trgovanje delnic z oznako A, določi nadzorni svet, pri čemer upošteva knjigovodsko, ocenjeno in tržno vrednost delnice. Konec leta 2017 je osnovni kapital družbe sestavljalo 514.215 delnic z nominalno vrednostjo 4,1729 EUR. Podjetje jih je v preteklem letu kupovalo po ceni od 5,50 do 7,00 eurov na delnico, na skupščini leta 2018 pa so ceno omejili med 10 in 20 euri na delnico.
+
+
+
+\subsection{Analiza makroekonomskega okolja}:\\
+Kot omenjeno je torej podjetje X elektroindustrijsko podjetje, katerega glavna dejavnost je proizvodnja elektromotorjev, generatorjev in transformatorjev. V sklopu vseh dejavnosti ta spada med predelovalne, ki so najobsežnejše. Podjetje se nahaja na območju Gorenjske regije, ki spada na četrto mesto po rezultatih poslovanja (merilo so število družb, zaposlenih, skupni prihodki) vseh gospodarskih družb v Sloveniji. Glede na to, da velik del njegovih dobaviteljev predstavljajo slovenske družbe, kupci pa so v veliki meri tuje, je za našo napoved prihodnjih denarnih tokov zelo pomembno stanje gospodarstva tako pri nas kot tudi v tujini.
+
+\subsubsection{Gospodarska gibanja v Sloveniji}:\\
+Predelovalne dejavnosti v Sloveniji po podatkih za leto 2017 pokrivajo največji delež ($53,9\%$) čistih prihodkov od prodaje na tujih trgih, hkrati pa prevladujejo tudi po številu zaposlenih. 
+Na slovenskem prostoru je tako imela po podatkih Gospodarske zbornice Slovenije za leto 2017, elektronska in elektroindustrija (EEI) $20,5\%$ delež izvoza in je ustvarila $17,92\%$ dodane vrednosti slovenske predelovalne industrije. Čisti prihodki od prodaje za EEI že od leta 2009 naraščajo, prav takšen pa je tudi trend gibanja deleža prodaje na tuje trge. Dodana vrednost na zaposlenega po padcu v 2009 strmo narašča, stroški v njej pa se praviloma znižujejo, z eno izmed izjem tudi v letu 2017 (povišanje za $1,4\%$). Neto čisti dobiček skozi leta počasi narašča, prav tako pa praviloma tudi kazalnik ROE (delež dobička v kapitalu).\\
+Proizvodnja električnih naprav je v letu 2017 znotraj vseh predelovalnih dejavnosti zabeležila največji skupni prihodek, in sicer $12,2\%$, z višino neto čistega dobička pa se uvršča na drugo mesto, takoj za proizvodnjo farmacevtskih surovin in drugih preparatov. Tako skupni prihodek kot neto čisti dobiček sta višja kot leto poprej, čista izguba pa upada.\\
+Po podatkih Zbornice elektroindustrije Slovenije bo v prihodnjih letih povpraševanje še vedno poganjal izvoz, ki bo sicer prednjačil pred domačo porabo in javnimi investicijami, a se bo njegova rast počasi umirjala. To naj bi bila predvsem posledica upočasnitve rasti tujega povpraševanja in odsotnosti nekaterih dejavnikov v avtomobilski industriji, ki so izvoz povečevali v zadnjih letih. Hkrati se bodo stroški dela postopno zviševali, zato izboljševanja izvozne konkurence ni pričakovati. V obdobju 2018-2020 naj bi po napovedih UMAR rast investicij ostala visoka. Podjetja naj bi investirala zaradi rasti povpraševanja, zasebne investicije pa bodo posledica optimizma med potrošniki in ugodnega gibanja na trgu dela, čeprav bodo kasneje v prihodnosti zaradi umirjanja rasti zaposlenosti precej nižje. Višanje cen nafte in storitev naj bi privedlo do manjšega povečanja inflacije na dobra $2\%$.
+
+\subsubsection{Gospodarska gibanja v Evropi in po svetu}:\\
+Splošni trendi tako na evropskih trgih kot tudi drugod po svetu, so usmerjeni v blažjo rast elektroindustrije kot v zadnjih letih. Pri tem je največji napredek zaznan v avtomobilski industriji, s povečano prodajo gospodarskih in osebnih vozil. Negativni trendi pa se znotraj elektroindustrije pojavljajo predvsem zaradi nadaljnjega upočasnjevanja trga BRICS (Brazilija, Rusija, Indija, Kitajska, Južna Afrika), ki v veliki meri izhaja iz odnosov med Rusijo in Ukrajino in devalvacije Ruskega rublja. %Prav tako pa se je znižala vrednost Angleškega funta, kar draži izvoz v Anglijo.%
+Kljub temu se v prihodnosti pričakuje zmerna rast v večini industrijskih držav, verjetnost pa obstaja, da bodo dodatno zavoro na pozitivna gibanja prinesli dogodki v zvezi z brexitom in novo mednarodno trgovinsko politiko predsednika Donalda Trumpa. Napoved za prihodnost s strani evropske organizacije IDEA (International Distributors of Electronic Association) torej vključuje pozitivno, a počasnejšo rast panoge, kar so podkrepili s podatki v grafu:
+%slika%
+
+
+\subsection{Finančna analiza podjetja}
+\subsubsection{Obvladovanje tveganj}:\\
+Podjetje dosledneje obvladuje vse vrste tveganj že od leta 2009, ko so vzpostavili vodenje registra tveganj, v katerem se le ta beležijo in v katerem je ocenjena njihova vrednost in resnost. Tveganja razvrščajo v tri glavne skupine: finančna, poslovna tveganja in tveganja delovanja.\\
+V okviru \textbf{finančnih tveganj} se soočajo z likvidnostnim tveganjem, pri katerem se trudijo zagotoviti plačilno sposobnost in solventnost podjetja predvsem z načrtovanjem in usklajevanjem ročnosti terjatev in obveznosti. Finančne naložbe so razpršene, zagotovljen pa imajo tudi revolving kredit, ki jim omogoča reševanje problemov kratkoročne neuravnoteženosti likvidnostnih sredstev. Povečanje spremenljive obrestne mere EURIBOR povzroča obrestno tveganje. Temu se izogibajo s sledenjem trendov gibanja te obrestne mere in hkratnim sprotnim prestrukturiranjem kreditnega portfelja. Kreditno tveganje, povezano z neizpolnjevanjem obveznosti dolžnikov podjetja (predvsem kupcev) obvladujejo z razpršeno prodajo po skupinah kupcev, programih in trgih ter z zavarovanjem terjatev. Zadnje v tej skupini je še valutno tveganje, ki je za podjetje zaradi kar $90\%$ vezanosti poslovanja na tujino, zelo pomembno. Vsakodnevno spremljajo gibanje tečajev, v čim večji meri pa skušajo prodajne cene proizvodov vezati na valute, v katerih imajo večji del obveznosti za financiranje poslov. Naslednja so \textbf{poslovna tveganja}, ki so zajeta predvsem v tveganju pojava odškodninskih zahtevkov, ekonomski krizi, izgubi pozicije strateškega dobavitelja in neuspehih na novih projektih. Obvladovanje poteka preko testiranja izdelkov, sistematičnega načrtovanja poslov in povečevanja konkurenčnosti v vlogi dobavitelja. \textbf{Tveganja delovanja} pa se navezujejo predvsem na izgubo premoženja, pomembnega za nemoteno poslovanje podjetja. Pri tem mislimo na tveganje naravnih nesreč, nedobave izdelkov kupcem, nekakovost, nezgode pri delu, kibernetske napade,... Celoten obratovalni zastoj je zavarovan, dosledno vzdržujejo strojno opremo, velik poudarek pa dajejo tudi na striktno izvajanje predpisov varstva pri delu.\\
+Podjetje ocenjuje, da je v splošnem izpostavljenost tveganjem nizka in le ta dobro obvladuje.
+
+
+\subsubsection{Analiza računovodskih izkazov podjetja X}:\\
+Za namene ocenjevanja vrednosti podjetja bomo, kot že omenjeno, uporabljali pretekle podatke o poslovanju, na podlagi katerih bo temeljila tudi napoved v prihodnost. Za merilo vzemimo zadnjih pet zaključenih poslovnih let, za katere so dostopna letna poročila, torej obdobje od leta 2013 do 2017.\par
+
+
+\textbf{Analiza bilance stanja:}\\
+\underline{Aktiva bilance stanja podjetja X}\\
+(=Graf gibanja sredstev podjetja)\\
+V letih 2013-2017 skupna vrednost sredstev podjetja raste, in sicer predvsem kot posledica višjih vrednosti opredmetenih osnovnih sredstev in pa kratkoročnih poslovnih terjatev ter zalog. Na strani dolgoročnih sredstev lahko opazimo trend, da kratkoročna sredstva v vseh letih predstavljajo večji del sredstev kot dolgoročna, za zadnje leto pa tega ne moremo trditi. V letih 2016 in 2017 so namreč v večji meri vlagali v proizvajalne naprave, stroje in drugo opremo ter investicije v splošnem, kar je povečalo vrednost dolgoročnih sredstev, hkrati pa je to tudi razlog za največji skok vrednosti sredstev v teh dveh letih. Na drugi strani pa na področju kratkoročnih sredstev lahko spremljamo porast vrednosti zalog. Ta je predvsem posledica večjih zalog materiala in surovin, večji del pa predstavljajo tudi zaloge proizvodov in nedokončane proizvodnje. Vrednosti vseh treh postavk so se ključno zvišale v letih 2015 in 2016, kar lahko povežemo z načrtovanjem povečanega investiranja v nove stroje in opremo, kot omenjeno zgoraj. Na področju kratkoročnih sredstev je vidno tudi povečanje kratkoročnih poslovnih terjatev, ki pa je v veliki večini vezano na tuje trge. Povečanje je torej posledica vse večje izvozne usmerjenosti podjetja. Terjatve do kupcev v tujini namreč v proučevanem obdobju naraščajo, do domačih kupcev pa v prvih štirih letih celo upadajo.  \par
+Kazalnik lastniškosti financiranja podjetja X se giblje okoli priporočljivih vrednosti, torej okoli $50\%$. Velja, da večji delež kapitala znotraj obveznosti do vseh virov financiranja pomeni privlačnejšo naložbo za investitorje, saj to pomeni, da je delež dolga manjši. Opazimo lahko, da se podjetje X vsako leto z dolgom financira v manjši meri, kar je dober znak.\\
+\underline{Obveznosti do virov sredstev:}\\
+(=Graf gibanja pasive podjetja)\\
+Vrednost kapitala podjetja je od leta 2013 do 2017 narasla za kar $140\%$, in sicer v povprečju za dobrih $24\%$ letno. Porast je posledica kopičenja zadržanih dobičkov, ki so zmanjšani za razpustitev rezerv za lastne delnice, izplačilo dividend in tečajnih razlik. Čisti poslovni izid po letih narašča, in sicer je iz $2.637.580,00$ evrov leta 2013, pet let kasneje dosegel vrednost $10.762.148,00$ evrov. Vrednosti osnovnega kapitala in kapitalskih rezerv v obravnavanih letih ostajata nespremenjeni.\\
+Poleg kapitala na pasivni strani bilance stanja spremljamo tudi gibanje kratkoročnih in dolgoročnih obveznosti. Te so v skupni vrednosti, kot je razvidno iz grafa, v zadnjih treh letih načeloma nižje od vrednosti kapitala, pri čemer pa je posebnost vidna v letu 2016. Podjetje se je namreč v tem letu zadolžilo v večji meri pri državnih bankah, in sicer kar v vrednosti $9.439.263,00$ evrov. Prejeto posojilo je torej dvignilo glavnico dolgoročnega dolga in celotne obveznosti spet za malo povišalo nad vrednost kapitala. Odplačevanje dolga že poteka, zato kapital trenutno ponovno predstavlja več kot $50\%$ pasive bilance stanja. Podobno je tudi padec obveznosti iz leta 2013 v 2014 posledica odplačil dolgoročnih posojil bank, z zapadlostjo v letu 2015. V splošnem v vseh obravnavanih letih kratkoročne obveznosti obsegajo večinski delež celotnih, vključujejo pa predvsem obveznosti do domačih in tujih dobaviteljev. In če smo na strani kratkoročnih terjatev govorili o večjem deležu terjatev do tujine, je stanje na strani kratkoročnih obveznosti obratno. V obdobju petih let so se namreč povzpele iz $8.337.994,00$ na $14.184.880,00$ evrov (domači trg) ter iz $3.656.265,00$ na $6.498.162,00$ evrov (tuj trg). Obveznosti torej večinoma ustvarjajo doma, terjatve pa v tujini. Iz bilanc stanja je sicer razvidno, da podjetje sproti odplačuje večinske deleže obveznosti in ima z dobavitelji dober odnos.\par
+Kazalnik dolgoročnosti financiranja podjetja X se giblje okoli $60\%$. Ob tem lahko ocenimo, da je podjetje bolj nagnjeno k konzervativni finančni politiki, torej se bolj poslužuje dolgoročnih virov, ki so tudi varnejši, kot pa kratkoročnih. Finančna moč podjetja, ki jo prikazuje koeficient dolgovno-kapitalskega razmerja, daje dober znak o poslovanju. Njegova vrednost pod 1, ki je trend v zadnjih treh proučevanih letih, namreč kaže na večjo vrednost kapitala od dolgov.\\
+
+
+\textbf{Analiza izkaza denarnih tokov:}\\
+Izkazi denarnih tokov so ločeni na tri glavne, in sicer na denarne tokove pri poslovanju, naložbenju in pri financiranju.\\
+(=Graf gibanja denarnih tokov)\\
+\underline{Denarni tokovi pri poslovanju} so v vseh obravnavanih letih najvišji izmed vseh treh skupin tokov. Viden je trend naraščanja tako prihodkov iz poslovanja kot tudi poslovnih odhodkov, a skupni znesek prejemkov, kjer upoštevamo še davke iz dobička, iz leta v leto vseeno raste. Najbolj opazen porast je zabeležen v letu 2015, saj se poslovni prihodki v tem letu (glede na poslovne odhodke) najbolj povečajo, verjetno tudi zaradi pospešene prodaje. Poslovni odhodki niso narasli tako sunkovito, ker so imeli precej dokončanih proizvodov na zalogi že iz prejšnjega leta. Izdatki predvsem v dveh obdobjih, kot je vidno tudi na grafu, znižajo vrednost denarnih tokov iz poslovanja. V obdobju med letoma 2013 in 2014 je razlog za večje izdatke predvsem povečanje poslovnih terjatev in pa povečanje zalog, kar je posledica že prej omenjenega večjega nakupa materiala in surovin. Manjši padec denarnih tokov pri poslovanju je viden tudi v zadnjem letu. Na slednjega še bolj izrazito kot prej vpliva povečanje poslovnih terjatev, in sicer predvsem terjatev do kupcev na tujih trgih. V splošnem velja, da je pozitiven in še dodatno naraščajoč denarni tok iz poslovanja dober znak, sploh če le to velja daljše obdobje. Nakazuje namreč na uspešno poslovanje podjetja, torej ustvarjanje dobička pri prodaji izdelkov ali storitev.\\
+\underline{Denarni tokovi pri naložbenju} so bolj naklonjeni upadanju, pri čemer je največji padec viden v letu 2016. Razlog za to je znatno povečanje izdatkov za pridobitev opredmetenih osnovnih sredstev, kar je bilo vidno že iz povečanja vrednosti sredstev v bilanci stanja. V letu 2017 so bili omenjeni izdatki nekoliko manjši, posledično pa je tudi vrednost denarnega toka nekoliko narasla. Že v splošnem sicer tovrstni izdatki v največji meri nižajo vrednost denarnih tokov iz naložbenja. Po drugi strani lahko opazimo, da je prejemkov pri naložbenju vedno manj. V letih 2014 in 2015 so namreč prodali nekaj finančnih naložb, pri tem pa torej ustvarili večinski del prejemkov iz naložbenja. Posledično v nadaljnih letih od teh finančnih naložb niso prejemali nobenih obresti, kar je še dodaten razlog za nižji denarni tok. Izrazito negativne vrednosti tokov iz naložbenja so sicer značilne predvsem za mlada podjetja, ki pospešeno investirajo v stroje in opremo za sam zagon in vzpostavitev proizvodnje. V našem primeru podjetje posluje že dlje, a se zelo zavzema za uvajanje novih proizvodnjih programov in širitev ponudbe, zato se dodatnim naložbam ne more izogniti. Po drugi strani pozitivna vrednost tokov iz naložbenja ne pomeni nujno dobrega poslovanja, saj je ta lahko posledica pospešene odtujitve osnovnih sredstev, torej unovčevanja lastnega premoženja. Tega pa v nedogled podjetje ne more početi, če na drugi strani ne investira v nove naložbe. \\
+Ob pregledu kazalnikov investiranja lahko vidimo, da delež osnovnih sredstev znotraj aktive bilance stanja narašča, kar pomeni, da podjetje skrbi za lastno obnovo in rast. Poleg tega je v skladu z zgornjimi ugotovitvami največji porast viden leta 2016, v 2017 pa je delež le še za $2\%$ oddaljen od polovice vrednosti vseh sredstev. Po drugi strani delež kratkoročnih sredstev v celotnih sredstvih rahlo upada, kar lahko pomeni izboljšanje za obračanje sredstev.
+Zadnji so še \underline{denarni tokovi, ustvarjeni pri financiranju}. Iz grafa je lepo razvidno, da se njihove vrednosti gibljejo tako rekoč zrcalno vrednostim tokov pri naložbenju. Povečanja so v splošnem, najbolj opazno pa v letu 2016, posledica porasta prejemkov zaradi povečanja dolgoročnih finančnih obveznosti. Kot omenjeno že pri obravnavi obveznosti podjetja, so v tem letu namreč najeli večje posojilo bank, kar se odraža kot pritok dodatnega denarja, prejemek. Ker pa je tako pridobljen denar za podjetje obveznost, pozitivna vrednost tokov iz financiranja navadno ni dober znak. Najem posojil se ujema s povečanimi naložbami v opredmetena osnovna sredstva, torej zrcalnost grafa ni naključje. V letu 2015 dodatnih posojil niso najemali, imeli so torej že dovolj denarnih sredstev za izvedbo vseh naložb. Posledično vrednosti obeh denarnih tokov upadeta hkrati. V letu 2017 so sicer prejeli nekaj dodatnih posojil, a so hkrati odplačali precejšnji delež obveznosti od prej, zato je skupna vrednost tokov že vidno nižja.\\
+Denarni izid je pozitiven le v letu 2015, ki je na področju denarnih tokov zaznamovano z največjim porastom tokov pri poslovanju, tako naložbenje kot tudi financiranje pa sta tik pred svojima skrajnima vrednostma. Znižanje v prihodnjem letu 2016 je posledica povečanega investiranja, ki smo ga omenili prej, in sicer tudi v letu 2017 denarni izid še ne doseže pozitivne vrednosti. Daljši tovrsten trend sicer ni zaželjen, a si glede na to, da se vrednost denarnega izida vseeno dviga, lahko obetamo porast nad ničelno vrednost v prihodnosti.\\%%%napoved?? 
+
+
+
+\textbf{Analiza izkaza poslovnega izida:}\\
+Izkaz poslovnega izida podaja informacije o poslovanju podjetja v določenem obdobju (v našem primeru poslovno leto), in sicer preko ustvarjenih prihodkov in nastalih odhodkov ter posledično poslovnega izida kot njune razlike. \\
+Razdelimo torej podatke iz izkaza poslovnega izida na dve pomembni kategoriji, torej prihodke in odhodke. Tako na strani enih kot tudi drugih lahko opazimo trend naraščanja vrednosti. V prvih štirih letih se stroški vedno povečajo za manj kot prihodki, v zadnjem obdobju (iz leta 2016 na 2017) pa je njihov porast že večji od prihodkovnega. To dolgoročno sicer ni dober znak, saj lahko sčasoma privede do upada poslovnega izida. Zaenkrat razlika vrednosti skupnih prihodkov in stroškov po letih še  narašča, zato je izid iz poslovanja podjetja vedno višji. Iz $3.011.623$ eurov leta 2013 tako v letu 2017 doseže kar $11.548.315$ eurov.\\
+(=Graf IPI - pred davkom)\\
+\underline{Prihodki podjetja} so seveda v največji meri odvisni od čistih prihodkov od prodaje, ki iz leta v leto naraščajo za vedno višji znesek. Njihov večinski delež predstavljajo prihodki iz prodaje kupcem v EU. K porastu poslovnega izida iz poslovanja so v letih 2016 in 2017 precej pripomogli tudi drugi poslovni prihodki. Njihova vrednost je iz leta v leto višja, glavni razlog za sunkovito povečanje od leta 2015 pa je sprememba v načinu računovodskega poročanja. V letu 2015 so namreč k tej kategoriji pričeli dodajati še usredstvene lastne proizvode in storitve, finančne prihodke iz poslovnih terjatev do drugih ter prejete kazni in odškodnine, nepovezane s poslovnimi učinki. Do leta 2015 so le te beležili pod druge prihodke in zato niso bili del poslovnega izida iz poslovanja. Količina usredstvenih lastnih proizvodov in storitev iz leta v leto narašča, in sicer je iz $1.685.332$ eurov leta 2013, v 2017 presegla $5.000.000$ eurov. To so vsi proizvodi in storitve, ki jih je podjetje opravilo ali ustvarilo za lastne potrebe, z njimi pa ne moremo izkazovati dobička, štejemo jih namreč med opredmetena oziroma neopredmetena osnovna sredstva. Na strani prihodkov je pomembna postavka tudi sprememba vrednosti zalog proizvodov in nedokončane proizvodnje. V vseh, razen v letu 2015, je bila njihova vrednost ob koncu leta večja od začetne, torej so prodali manj proizvodov, kot pa so jih dokončali ali vsaj pričeli izdelovati. Ob preučevanju vrednosti po letih lahko opazimo, da vsakemu večjemu povečanju sledi padec. Večji porast tako lahko opazimo predvsem v letu 2014, ko so proizvodnjo močno pospešili, v letu kasneje pa spodbudili predvsem prodajo. Enako se zgodi tudi v naslednjih dveh letih, po vzorcu torej lahko sklepamo da podjetje sproti nadzoruje in preprečuje preveliko povečanje zalog.\\%%%
+(=Graf IPI - prihodki podjetja)\\
+Poglejmo si še finančne prihodke, ki najbolj vplivajo na izkaz poslovnega izida. Do leta 2016 so obsegali prihodke iz deležev in drugih naložb, prihodke iz danih posojil ter tiste iz poslovnih terjatev, pri čemer slednje od leta 2016 dalje štejemo pod poslovne in ne finančne prihodke. Prihodki iz deležev v drugih organizacijah z izjemo padca v letu 2015 ves čas naraščajo, največji porast pa je zabeležen v zadnjem letu 2017. Samo v letu 2015 je bilo namreč zabeleženo zmanjšanje lastniškega deleža podjetja v drugih družbah, in sicer zaradi odtujitve dolgoročnih finančnih naložb. V vseh ostalih obdobjih pa delež le še povečujejo, pri čemer gre predvsem za vlaganja v eno energetsko družbo, razvojni center in eno banko. Prihodki iz drugih naložb od leta 2014 dalje upadajo vse do ničelne vrednosti v zadnjem letu, prav tako pa se nižajo tudi finančni prihodki iz danih posojil, in sicer iz $68.427$ evrov v letu 2013 na $3.802$ v 2017. Razlog za to je predvsem zmanjševanje dajanja posojil, saj je podjetje z letom 2014 za krajše obdobje prenehalo dajati vsa kratkoročna posojila in obdržalo le še dolgoročna. V zadnjem letu je sicer vrednost danih posojil nekoliko narasla, a je na povišanje finančnih prihodkov bolj vplivalo predvsem ponovno povečanje vrednosti dolgoročnih naložb v prej omenjene družbe. V sklop prihodkov, beleženih pod poslovne prihodke, spadajo še finančni prihodki iz poslovnih terjatev. Ti se nanašajo predvsem na terjatve do kupcev, ker pa je podjetje velik izvoznik, na te prihodke v večji meri vplivajo tudi tečajne razlike. Vrednost prihodkov se najbolj poveča v letu 2015, kar se ujema tudi s prej omenjeno pospešeno prodajo.\par
+
+V nadaljevanju se osredotočimo še na \underline{odhodke} v izkazu poslovnega izida. Najodločilneje na njihovo vrednost vplivajo stroški blaga, materiala in storitev. Naslednji so stroški dela, amortizacija, prevrednotovalni in pa drugi poslovni odhodki ter finančni odhodki iz poslovnih obveznosti.\\ Ob pregledu stroškov blaga, materiala in storitev opazimo, da je njihova vrednost iz leta v leto višja. Največji delež tako predstavljajo stroški porabljenega materiala, in sicer vsako leto narastejo za večjo vrednost. Nabavna vrednost prodanega blaga in materiala ter stroški storitev so nekoliko bolj stabilni in naraščajo počasneje, zato lahko večje stroške porabljenega materiala povežemo predvsem z vse večjim obsegom proizvodnje. Njihov delež, ki se nanaša na stroške prodaje, se vidneje poveča v letih 2015 in 2017, kar potrjuje dejstvo, da so v teh letih zmanjšali vrednost zalog proizvodov in nedokončane proizvodnje in pospešili predvsem prodajo. %%
+Pri pregledu stroškov dela, so glavna postavka stroški plač, ki iz leta v leto naraščajo, kar je posledica pospešenega dodatnega zaposlovanja delavcev. Iz $1.014$ v letu 2013 se je namreč njihovo število v petih letih povzpelo na $1.265$. Največji porast je bil predvsem v zadnjih dveh proučevanih letih, ko so tudi stroški dela najbolj narasli. Posledično so višji tudi zneski stroškov pokojninskih in socialnih zavarovanj, rezervacij za odpravnine in nagrade,... Največji del stroškov dela se navezuje na splošne dejavnosti, drugi na proizvodnjo, stroški prodaje pa so manjši in naraščajo zelo počasi. Med pomembnejše odhodke štejemo tudi odpise vrednosti. Znesek amortizacije, kot njihove glavne postavke, je iz leta v leto višji, pri čemer je največji porast viden v letih 2016 in 2017. To je posledica večjih vlaganj v opredmetena osnovna sredstva (predvsem stroje in opremo), opisanih pri obravnavi bilance stanja. Največji strošek pri prevrednotovanju opredmetenih in neopredmetenih osnovnih sredstev in pa tudi kratkoročnih sredstev je zabeležen leta 2016. Tedaj je bila torej knjigovodska vrednost omenjenih sredstev podjetja najbolj povečana nad pošteno, zato je bila potrebna slabitev. Leto kasneje sta bili vrednosti že bolj usklajeni, prevrednotovalni poslovni odhodki pa so bili posledično skoraj za polovico nižji.\\
+(=Graf IPI - odhodki podjetja)\\
+ Na strani finančnih odhodkov od leta 2016 dalje ključni del predstavljajo odhodki iz posojil, prejetih od bank, torej stroški obresti in morebitnih prevrednotenj. Njihova vrednost pada vse od leta 2013, v zadnjem letu pa nekoliko naraste. To je lahko posledica zadolževanja pri bankah v letu 2016, ki smo ga omenili pri obravnavi obveznosti v bilanci stanja, sicer pa zadolževanje podjetja po letih upada. V omenjenem letu gre za dolgoročno posojilo, zato si nekoliko višje tovrstne stroške lahko obetajo tudi v prihodnosti. Do leta 2016 so v postavko finančnih odhodkov šteli tudi finančne odhodke iz poslovnih obveznosti, ki pa so celotne finančne odhodke precej povečali. Vključujejo namreč finančne odhodke iz obveznosti do dobaviteljev in drugih poslovnih obveznosti. Prvi so zaradi povečane proizvodnje iz leta v leto višji, odhodki iz drugih poslovnih obveznosti pa svoj maksimum dosežejo v letu 2015. So zopet posledica tečajnih razlik, ki vplivajo na finančne naložbe. V tem letu je podjetje najbolj izpostavljeno valutnemu tveganju zaradi tečajnih razlik med evrom in ameriškim dolarjem (USD) ter kitajskim juanom (CNY).\\
+Po obravnavi vseh omenjenih prihodkov in odhodkov na dobljen čisti poslovni izid pred obdavčitvijo apliciramo še davek na dobiček, ki je vsako leto nekoliko višji. V letu 2017 je del davka odloženega, zanj pa se predvideva, da bo davčno osnovo zniževal v prihodnjem letu.\\ 
+  
+\textbf{Analiza gibanja kapitala:}\\
+(=Graf gibanja čistega poslovnega izida)\\
+Izkaz gibanja kapitala nam prikazuje gibanje posameznih sestavin kapitala, tudi uporabo čistega dobička in pokrivanje izgube. Iz grafa lahko vidimo, da je bilančni dobiček v proučevanih letih ves čas naraščal, pri čemer je najmanjši porast zabeležen v zadnjem letu 2017. Posledica tega je najmanjša pozitivna sprememba čistega dobička v primerjavi s predhodnimi leti. Kot smo ugotovili pri analizi izkaza poslovnega izida, stroški podjetja naraščajo že hitreje kot prihodki, kar je posledica manjšega porasta poslovnega izida v zadnjem letu. Zaradi vse bolj obsežnega zaposlovanja novih delavcev čisti poslovni izid na zaposlenega v letu 2017 že upade, prav tako pa tudi donos predstavlja najmanjši delež kapitala v zadnjih treh proučevanih letih. Po drugi strani je v sklopu sprememb lastniškega kapitala vsako leto izplačana večja količina denarja za dividende, ki so iz $0,5$ eur v letu 2013 do leta 2017 narasle na $0,8$ eur na delnico. Presežek iz prevrednotenja je vsako leto nižji, in sicer iz $5.691$ eurov v petih letih pade na vrednost $-821.976$ eurov. Drugi vseobsegajoči donos namreč kaže na nižanje knjigovodske vrednosti kapitala, in sicer se pojavljajo vedno večji padci. Poleg tega rast bilančnega dobička nekoliko zavirajo tudi prevrednotenja zaradi tečajnih razlik, ki so v zadnjih dveh letih (2016 in 2017) negativna.  \\
+
+
+\subsection{Finančna analiza poslovanja podjetja X}
+\begin{itemize}
+\item Analiza bilance stanja\\
+Na strani sredstev večinski delež do leta 2016 predstavljajo kratkoročna sredstva, v omenjenem letu pa v podjetju izvedejo večje investicije v osnovna opredmetena sredstva, natančneje v proizvajalne stroje in opremo. V ta namen se tudi zadolžijo pri večjih slovenskih bankah, kar se pozna tudi na povečanih dolgoročnih obveznostih na strani pasive v bilanci stanja. Sicer imajo v sklopu kratkoročnih sredstev glavno vlogo poslovne terjatve, ki se nanašajo predvsem na kupce na tujih trgih, saj je podjetje izrazito izvozno usmerjeno. 
+\begin{itemize}
+\item Opredmetena osnovna sredstva so v analiziranih letih predstavljala dobrih 20\% prihodkov, porast preko 30\% v zadnjih dveh letih pa je posledica zgoraj omenjenih povečanih investicij. Zato pri napovedi deleža osnovnih sredstev v prihodkih moramo upoštevati tudi načrtovane investicije. Po napovedih UMAR naj bi za slovensko gospodarstvo veljala sicer pozitivna rast investicij v prihodnosti, a hkrati vedno bolj umirjena. V letih od 2018 do 2022 se zato delež osnovnih opredmetenih sredstev v prihodkih giblje od 34\% pa do 40\%.
+\item Dolgoročne terjatve ne igrajo praktično nobene vloge pri bistveni spremembi vrednosti sredstev, zato jim napovemo 0\% delež v prihodkih, prav tako velja tudi za kratkoročne finančne naložbe.
+\item Zaloge so do leta 2017 predstavljale med 13\% in 15\% prihodkov, ker pa se po gospodarskih napovedih na tujih trgih obeta vse manjši uvoz, pričakujemo rahel upad prodaje. Zato se bodo zaloge v prvih letih verjetno nekoliko kopičile in bo njihova vrednost visoka,  sčasoma pa naj bi se umirila, napovedala sem končno vrednost 12\% prihodkov. Poleg tega se podjetje zavzema za vitko proizvodnjo, torej zmanjšanje kopičenja zalog in njihovo hitrejše obračanje.
+\item Iz naslova rahlega upada prodaje napovemo tudi vse manj strmo naraščanje kratkoročnih terjatev do kupcev, in sicer iz 17\% v letu 2018 predvidoma dosežejo 13\% v letu 2022. Hkrati koeficient obračanja terjatev kaže na vedno bolj učinkovito (hitro) konvertiranje terjatev v denarna sredstva, zato podoben trend nadaljujemo tudi v prihodnosti.
+\end{itemize}
+Stran pasive v bilanci stanja je poleg kapitala najbolj odvisna od kratkoročnih, predvsem poslovnih obveznosti. To so obveznosti do dobaviteljev, ki pa so večinoma domača podjetja. Kapital hkrati predstavlja dobro polovico vrednosti pasive, kar je za investitorje dober znak, saj se podjetje financira v večji meri lastniško kot dolžniško.
+\begin{itemize}
+\item Dolgoročne obveznosti, ki vključujejo tudi rezervacije, se vidneje povečajo v letih 2013 in 2016, ko se podjetje v večji meri zadolži in oblikuje obsežnejši dolgoročni dolg. V letu 2015 dosežejo stopnjo 6\% prihodkov, kar se mi zdi tudi dobra iztočnica za napovedovanih pet let, do leta 2022. Dobljeno posojilo iz leta 2016 bo podjetje v prihodnosti poravnalo, zato se bo nivo dolgoročnih obveznosti znižal.
+\item Po večji rasti prodaje v prvem letu, upoštevamo napoved umiritve prodaje (predvsem izvoza) in posledično tudi proizvodnje, zato delež napovedanih kratkoročnih poslovnih obveznosti iz 19\% pade na 16\% ob koncu petletja. Tako skupne kratkoročne obveznosti tako v analiziranih letih kot tudi v projekciji v prihodnosti predstavljajo približno četrtino vrednosti prihodkov podjetja X.
+\end{itemize}
+Poglejmo si še nekaj kazalnikov, ki so pomembni za napoved vrednosti v prihodnjih letih in posledično za odločanje potencialnih investitorjev. Oba kazalnika, tako ROA kot tudi ROE rasteta, kar je spodbuden znak. Prvi nam kaže sposobnost podjetja, da iz sredstev ustvarja dobiček, drugi pa sposobnost ustvarjanja dobička preko kapitala, ki so ga lastniki vplačali v podjetje. Rast ROE dobičkonosnosti torej pove, da poslovodstvo podjetja učinkovito razpolaga z lastniškim kapitalom, kar je za investitorje ključnega pomena. Obeta jim namreč donosnejšo naložbo v podjetju. Višja vrednost tega kazalnika je sicer lahko tudi posledica povečanega deleža dolga, saj je posledično lastniškega kapitala manj. V našem primeru se to lahko minimalno pozna le v letu 2016, ko se je podjetje nadpovprečno zadolžilo. Hkrati pa po trendu preostalih let vidimo, da je rast vrednosti kazalnika ROE kljub temu realna. \\
+Pri izračunu kazalnika dolgoročnega financiranja lahko opazimo konzervativnejšo politiko zadolževanja podjetja X. Vsota kapitala, dolgoročnega dolga in pasivnih časovnih razmejitev ter rezervacij namreč predstavlja preko 60\% obveznosti do virov sredstev. Izjema je le leto 2016, ko se obveznosti zaradi zgoraj omenjenih razlogov precej povečajo. Podjetje se torej raje zadolžuje na daljši rok, kar je sicer varneje in manj tvegano. Velja pa, da je prevelik delež dolgoročnih dolgov lahko prikaz problema v gospodarnosti z razpoložljivimi sredstvi.\\
+V sklopu postavk bilance stanja lahko spremljamo tudi gibanje obratnega kapitala. Ta je poračunan kot razlika med kratkoročnimi sredstvi in kratkoročnimi obveznostmi, kjer sem odvzela vse finančne naložbe in obveznosti. Njegova vrednost se (spet z izjemo v 2016) rahlo povečuje, kar v splošnem ni dober znak. Podjetje ima vedno več sredstev, ki niso prispevala k povečanju obsega prodaje, pač pa le zmanjšala donosnost sredstev podjetja (ROA). Glede na politiko zmanjševanja zalog, ki bo zmanjšala vrednost kratkoročnih sredstev pa lahko napovemo vedno bolj učinkovito upravljanje z obratnim kapitalom, kar bo opazno tudi kasneje v analizi.\\
+
+\item Analiza izkaza poslovnega izida\\
+Izkazi poslovnega izida nam prikazujejo povečevanje čistega poslovnega izida v vseh proučevanih petih letih, pri čemer stopnja rasti upada. Velja namreč, da se poslovni odhodki povečujejo z vedno bolj podobno stopnjo kot prihodki, kar dolgoročno gledano ni dober znak, saj lahko vodi do negativne rasti čistega poslovnega izida.
+\begin{itemize}
+\item Glavna postavka odhodkov v izkazu poslovnega izida so stroški materiala, blaga in storitev, ki iz leta v leto naraščajo, vsakokrat za približno enako stopnjo  (12\% do 15\%). V prihodnosti naj bi po napovedih UMAR raziskav cene surovin še naraščale, zato sem napovedala v letih od 2020 do 2022 za 2\% višji delež omenjenih stroškov v prihodkih (64\%). Stroški materiala namreč predstavljajo skoraj celoten del skupnih stroškov blaga, materiala in storitev. 
+\item Naslednja pomembna postavka odhodkov v izkazu poslovnega izida so stroški dela. Ti so v proučevanih letih predstavljali od 26\% do 23\% prihodkov. Za lažjo primerjavo sem stroške dela preračunala v vrednost na enega zaposlenega, zraven pa sem pri napovedi v prihodnosti upoštevala predvideno rast bruto plače na delavca v Sloveniji. Ta naj bi se v prvih dveh letih po cenitvi podjetja dvignila za slaba 2\%. Strošek dela na zaposlenega v moji napovedi torej v letih do 2022 še raste, v sklopu rastočih celotnih prihodkov pa stroški dela predstavljajo vedno manjši delež, a še vedno ostajajo blizu 20\%.
+\item Amortizacijo sredstev podjetja sem ocenjevala na podlagi amortizacijskih stopenj posamezne kategorije sredstev. Pri tem sem upoštevala neopredmetena dolgoročna sredstva (programska oprema) in opredmetena osnovna sredstva (gradbeni objekti, proizvajalne naprave in stroji ter druga oprema). Razdelila sem jih na amortizacijo obstoječih in na novo investiranih sredstev. Programska oprema se amortizira po letni stopnji 33,3\%, gradbeni objekti po 3,5\%, proizvajalni stroji 15\% in druga oprema po 12,5\% letno. Njihova vrednost na dan ocenjevanja vrednosti podjetja se torej v petih letih amortizira po teh konstantnih stopnjah, pri čemer pa moramo upoštevati tudi dodatne investicije v sredstva. Obravnavala sem vsako kategorijo posebej, nato pa na letni ravni seštevala staro in novo amortizacijo. Ker je vrednost proizvajalnih naprav in strojev najvišja, investicije vanje pa najobsežnejše, njihova amortizacija predstavlja največji delež skupne. Po drugi strani pa je amortizacija neopredmetenih osnovnih sredstev zaradi njihovega majhnega obsega komaj zaznavna, četudi se amortizirajo najhitreje. V splošnem lahko opazimo, da je vrednost celotne amortizacije razmeroma podobna skozi vsa leta, oziroma se zaradi večje vrednosti in nabave sredstev rahlo zvišuje.\\
+\end{itemize}
+Poleg napovedi amortizacije pa moramo spremljati tudi investicije podjetja. Napoved vrednosti sredstev v prihodnosti bo namreč posledica povečanja zaradi investicij in zmanjšanja za amortizacijo. Investicije v osnovna sredstva so v analiziranih letih dosegale zelo različne deleže glede na prihodke. Od tega je najvišjo raven mogoče zaznati v že večkrat omenjenem letu 2016, ko so obsegale kar 16,43\% delež prihodkov, najnižjo pa v letu 2013, in sicer 1,39\% prihodkov. V prihodnjih letih sem pri napovedi upoštevala napoved bruto investicij v osnovna sredstva za slovensko gospodarstvo. Te se počasi umirjajo, in sicer dosegajo v letih 2018 in 2019 rasti 8\% in 7\%. Ker je pri našem podjetju zaznan trend večjega obsega investicij od povprečja v slovenskem gospodarstvu, sem prvo stopnjo rasti v prihodnosti ocenila z 11\%, do leta 2022 pa naj bi se ustalila na 7\%. Na drugi strani so investicije v neopredmetena dolgoročna sredstva precej manjših vrednosti, za napoved sem vzela približno povprečno rast analiziranih let (0,12\%), pri čemer sem do leta 2022 upoštevala tudi rahel padec iz napovedi. Ob prilagoditvi vrednosti sredstev za investicije in amortizacijo tako dobimo stopnje rasti, opisane pri analizi bilance stanja.
+\begin{itemize}
+\item Na strani prihodkov podjetja X največji del predstavljajo čisti prihodki od prodaje, ki se zaradi izrazite izvozne usmerjenosti podjetja navezujejo predvsem na tuje trge. Rast celotnih prihodkov se je v letih od 2013 do 2017 gibala od 11\% pa do 17\%, pri čemer je najvišja vrednost zabeležena v letu 2015. Takrat se je podjetje močno posvetilo prodaji, kar se vidi tudi po izrazitem zmanjšanju količine zalog in povečanju kratkoročnih terjatev. V prihodnjih letih sem za najvišjo stopnjo rasti upoštevala vrednost 12\%, le ta pa se počasi umirja vse do 7\% v letu 2022. Stopnje so dobljene kot posledica napovedi čistih prihodkov od prodaje v prihodnosti, glede na napovedano počasnejšo rast prodaje pa so tudi smiselne.
+\end{itemize}
+
+\item Vrednost prostega denarnega toka\\
+Za izračun prostega denarnega toka podjetja bomo izmed analiziranih računovodskih postavk potrebovali štiri ključne elemente. To so dobiček iz poslovanja po davkih, amortizacija, naložbe v osnovna sredstva in naložbe v obratni kapital. 
+\begin{itemize}
+\item Dobiček iz poslovanja je v preteklih petih letih rasel vsako leto z nižjo stopnjo, in sicer je od povečanja za 118\% v letu 2014, tri leta kasneje zrasel le še za 6\%. Povišanje v letu 2014 je poleg povečanja prihodkov od prodaje predvsem posledica pozitivne spremembe vrednosti zalog proizvodov in nedokončane proizvodnje. Kot omenjeno se je namreč podjetje v letu 2015 v veliki meri posvetilo prodaji, za te namene pa so leto poprej povečali svoje zaloge v proizvodnji. V prihodnjih petih letih dobiček iz poslovanja kot razlika napovedanih poslovnih prihodkov in odhodkov narašča. 
+\item Amortizacijo moramo dobičku iz poslovanja prišteti, saj je to nedenarni odhodek in je dejansko na razpolago za lastnike podjetja, torej je del prostega denarnega toka. Njene vrednosti so opisane v sklopu analize izkaza poslovnega izida.
+\item Seštevku zgornjih dveh postavk pa sedaj odštevamo naložbe v osnovna sredstva. Te so povečane za prejemke od prodaje osnovnih sredstev in amortizacijo ter zmanjšane za nakupe osnovnih in pa neopredmetenih sredstev. Denarni tok pri naložbah je bil tako v štirih od petih analiziranih let negativen, kar pomeni, da so bila vlaganja večja od amortizacije in prejemkov od prodaje. Ker pa tako slednji, kot tudi nakupi neopredmetenih sredstev bistveno ne spreminjajo vrednosti naložb, sem jih v projekciji v prihodnosti zanemarila. Stopnja amortizacije se po napovedih posameznih amortizacijskih stopenj giblje od 3\% do 4\% prihodkov, podobna, a rahlo višja raven pa je prisotna tudi zadnja štiri leta pred cenitvijo. Pri nakupih osnovnih sredstev sem upoštevala prej napovedane investicije. Te se torej gibljejo od 11\% pa do 7\% v zadnjem letu 2022, seveda vse v deležu letnih prihodkov. Vrednosti naložb, ki sem jih na ta način dobila, nakazujejo na vedno manjši obseg vlaganja podjetja v osnovna sredstva, kar se ujema tudi z gospodarskimi napovedmi.
+\item Sedaj dobljeni vrednosti odštevamo še naložbe v obratni kapital. Njegova vrednost predstavlja razliko med kratkoročnimi sredstvi (zaloge, dolgoročne in kratkoročne terjatve, denarna sredstva) in kratkoročnimi poslovnimi obveznostmi. Kot že omenjeno, je vrednost obratnega kapitala dobro optimizirati na čim nižjo raven, saj večja vrednost pomeni zadrževanje in neizkoriščenost nekaterih sredstev podjetja. To privede do večjih stroškov financiranja, saj povečan obratni kapital pomeni, da se nekatera kratkoročna sredstva financirajo z dolgoročnimi viri, ki pa so dražji od kratkoročnih. Obratni kapital, kot delež v letnih prihodkih podjetja, predstavlja v analiziranih letih od 22\% do 16\% in se bolj ali manj giblje okoli 20 milijonov evrov.  Povečanje do 22\% je predvsem posledica kopičenja zalog v letu 2014. Ob upoštevanju vseh prej napovedanih vrednosti bilance stanja v prihodnjih petih letih vidimo, da bo obratni kapital do leta 2022 dosegel 11\% letnih prihodkov, kar je dober znak. Podjetje bo namreč na dolgi rok uspešneje razpolagalo s kratkoročnimi sredstvi in obveznostmi. Potrebne naložbe v obratni kapital dobimo, ko odštejemo njegovo ciljno vrednost od trenutne, za vsako leto posebej. Negativna vrednost naložb torej pomeni zmanjšanje obratnega kapitala in obratno. Ko dobljeno vrednost odštevamo od trenutnega izračuna prostega denarnega toka, dobimo dejansko, ki je na razpolago lastnikom podjetja in ki jo bomo uporabili pri ocenjevanju vrednosti.\\
+Tako so dobljeni prosti denarni tokovi za nadaljnih pet let. 
+\end{itemize}
+
+\end{itemize}
+
+  
+
+
+
+
+
+
+
+% slovar
+\section*{Slovar strokovnih izrazov}
+
+%\geslo{}{}
+%
+%\geslo{}{}
+%
+
+
+% seznam uporabljene literature
+\begin{thebibliography}{99}
+
+
+
+%\bibitem{}
+
+\end{thebibliography}
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
